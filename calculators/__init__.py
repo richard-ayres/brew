@@ -21,3 +21,5 @@ from .ebc import EBC
 from .fermentable import Fermentable, Extract
 
 from .grain_bill import GrainBill
+from .hop_schedule import HopSchedule
+from .hop_addition import HopAddition
