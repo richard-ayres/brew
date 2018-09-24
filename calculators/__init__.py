@@ -8,3 +8,9 @@ from .gravity_adjuster import adjust_gravity
 
 from .celsius_to_fahrenheit import celsius_to_fahrenheit
 from .fahrenheit_to_celsius import fahrenheit_to_celsius
+
+from .ibu_calculator import IBU
+from .ibu_calculator import calculate_IBUs
+
+from .utilization_tinseth import TinsethUtilization as Utilization
+from .utilization_tinseth import tinseth_utilization as utilization
