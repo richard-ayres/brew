@@ -1,5 +1,6 @@
 import collections
 import abc
+import copy
 
 from .exception import CalculatorException
 
@@ -15,14 +16,15 @@ class Calculator(collections.abc.MutableMapping):
         self.params = dict()
 
         if args and isinstance(args[0], dict):
-            self.params.update(args[0])
+            self.update(args[0])
 
         if 'params' in kwargs:
-            self.params.update(kwargs['params'])
+            self.update(kwargs['params'])
             del kwargs['params']
 
         if kwargs:
-            self.params.update(kwargs)
+            self.update(kwargs)
+
 
     def __getitem__(self, key):
         """FIXME: clean this function up"""
@@ -37,19 +39,7 @@ class Calculator(collections.abc.MutableMapping):
 
             result = self.params[key] if key in self.params else self.defaults[key]
 
-        if isinstance(result, tuple):
-            result = tuple(map(deref, result))
-
-        elif isinstance(result, list):
-            result = list(map(deref, result))
-
-        elif isinstance(result, dict):
-            result = {key:deref(result[key]) for key in result}
-
-        else:
-            result = deref(result)
-
-        return result
+        return deref(result)
 
     def __setitem__(self, key, value):
         self.params[key] = value
@@ -65,6 +55,30 @@ class Calculator(collections.abc.MutableMapping):
 
     def __call__(self):
         return self.calculate()
+
+    def copy(self):
+        return copy.deepcopy(self)
+
+    def add(self, *args, **kwargs):
+        """Copy this object with the argument(s) as a property and return new object"""
+        obj = self.copy()
+
+        if args and isinstance(args[0], dict):
+            obj.update(args[0])
+
+        if 'params' in kwargs:
+            obj.update(kwargs['params'])
+            del kwargs['params']
+
+        if kwargs:
+            obj.update(kwargs)
+
+        return obj
+
+    def update(self, dct):
+        map_key = lambda s: s.replace('_', '-')
+
+        return super().update({map_key(k):dct[k] for k in dct.keys()})
 
     @abc.abstractmethod
     def calculate(self):
