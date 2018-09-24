@@ -1,13 +1,12 @@
 """Utilization calculator derived from Tinseth at http://www.realbeer.com/hops/research.html"""
 import math
+import calculators
 
-from .calculator import Calculator
-
-class TinsethUtilization(Calculator):
+class Utilization(calculators.Calculator):
     required = {'gravity', 'boil-time'}
 
     def calculate(self):
-        gravity = float(self['gravity'])
+        gravity = float(self['gravity']) / 1000.0
         boil_time = float(self['boil-time'])
 
         bigness = 1.65 * math.pow(0.000125, (gravity-1.0))
@@ -17,6 +16,6 @@ class TinsethUtilization(Calculator):
 
         return utilization
 
-def tinseth_utilization(gravity, boil_time):
-    return TinsethUtilization({'gravity': gravity, 'boil-time': boil_time}).calculate()
+def utilization(gravity, boil_time):
+    return Utilization({'gravity': gravity, 'boil-time': boil_time}).calculate()
 
