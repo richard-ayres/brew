@@ -17,5 +17,7 @@ from .ibu import calculate_IBUs
 from .utilization.tinseth import Utilization
 from .utilization.tinseth import utilization
 
-from .utilization_tinseth import TinsethUtilization as Utilization
-from .utilization_tinseth import tinseth_utilization as utilization
+from .ebc import EBC
+from .fermentable import Fermentable, Extract
+
+from .grain_bill import GrainBill
