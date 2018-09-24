@@ -1,3 +1,6 @@
+"""Hydrometer temperature correction. From
+http://www.straighttothepint.com/hydrometer-temperature-correction/"""
+
 from .calculator import Calculator
 from .celsius_to_fahrenheit import celsius_to_fahrenheit
 
