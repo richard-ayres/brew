@@ -1,11 +1,12 @@
 from calculators import Fermentable as FermentableCalculator
 from models import Fermentable as FermentableModel
 
+
 class Fermentable(FermentableCalculator):
 
-    @staticmethod
-    def from_model(model):
-        return Fermentable(**model.__dict__)
+    @classmethod
+    def from_model(cls, model):
+        return cls(**model.__dict__)
 
     def to_model(self):
         kmap = lambda key: key.replace('-', '_')

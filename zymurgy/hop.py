@@ -4,9 +4,9 @@ from models import Hop as HopModel
 
 class Hop(HopCalculator):
 
-    @staticmethod
-    def from_model(model):
-        return Hop(**model.__dict__)
+    @classmethod
+    def from_model(cls, model):
+        return cls(**model.__dict__)
 
     def to_model(self):
         kmap = lambda key: key.replace('-', '_')

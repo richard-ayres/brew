@@ -22,15 +22,20 @@ def home():
     return 'Brewtastic!'
 
 
-@app.route('/fermentables', methods=['GET'])
+@app.route('/fermentable', methods=['GET'])
 def list_fermentables():
     session = get_session()
-    fermentables = [zymurgy.Fermentable.from_model(fermentable)
-                    for fermentable in session.query(models.Fermentable).all()]
-    return jsonify([fermentable.params for fermentable in fermentables])
+    return jsonify([zymurgy.Fermentable.from_model(fermentable).params
+                    for fermentable in session.query(models.Fermentable).all()])
 
 
-@app.route('/hops', methods=['GET'])
+@app.route('/fermentable/<fermentable>', methods=["GET"])
+def get_fermentable(fermentable):
+    session = get_session()
+    fermentable = zymurgy.Fermentable.from_model(session.query(models.Fermentable).filter_by(name=fermentable).one())
+    return jsonify(fermentable.params)
+
+@app.route('/hop', methods=['GET'])
 def list_hops():
     session = get_session()
     hops = [zymurgy.Hop.from_model(hop)
@@ -40,3 +45,4 @@ def list_hops():
 
 if __name__ == "__main__":
     app.run()
+

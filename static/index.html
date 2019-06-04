@@ -2,18 +2,39 @@
 <head>
     <title>Brew</title>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="brew.js"></script>
 </head>
 <body>
 
-<select name="all-hops">
-    <option class="default" value="">Select hop...</option>
-</select>
+<div data-role="page" id="testpage">
 
-<select name="all-fermentables">
-    <option class="default" value="">Select fermentable...</option>
-</select>
+    <div class="ui-content" role="main">
+        <form class="ui-mini">
+            <!--<fieldset data-role="controlgroup" data-type="horizontal">-->
+            <div class="ui-grid-b">
+                <div class="ui-block-a">
+                    <div class="ui-field-contain">
+                        <label for="all-hops">Hop</label>
+                        <select name="all-hops" id="all-hops" data-mini="true">
+                            <!-- <option class="default" value="">Select hop...</option> -->
+                        </select>
+                    </div>
+
+                    <div class="ui-field-contain">
+                        <label for="all-fermentables">Fermentables</label>
+                        <select name="all-fermentables" id="all-fermentables" data-mini="true">
+                            <!-- <option class="default" value="">Select fermentable...</option> -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--</fieldset>-->
+        </form>
+
+    </div>
+</div>
 
 </body>
 </html>
