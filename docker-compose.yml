@@ -1,0 +1,25 @@
+version: "3"
+services:
+    brew:
+        build:
+            context: build/
+
+        image: brew
+
+        environment:
+            - LANG=C.UTF-8
+            - LC_ALL=C.UTF8
+
+        volumes:
+            - ./:/var/www/brew
+
+        ports:
+            - "8101:5000"
+            - "8888:8888"
+
+        container_name: brew
+networks:
+    default:
+        external:
+            name:
+                sundogtools_default
