@@ -2,6 +2,7 @@ from .calculator import Calculator
 from .gravity_to_plato import gravity_to_plato
 from .gravity_adjuster import adjust_gravity
 
+
 class ABWCalculator(Calculator):
     optional = {'temperature',
                 'original-extract', 'real-extract',

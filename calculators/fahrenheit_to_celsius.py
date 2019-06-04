@@ -1,5 +1,6 @@
 from .calculator import Calculator
 
+
 class FahrenheitToCelsius(Calculator):
     required = {'temperature'}
 

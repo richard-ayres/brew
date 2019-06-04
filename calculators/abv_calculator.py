@@ -1,6 +1,6 @@
 from .calculator import Calculator
-from .abwcalculator import ABWCalculator
 from .gravity_adjuster import adjust_gravity
+
 
 class ABVCalculator(Calculator):
     required = {'original-gravity', 'final-gravity'}

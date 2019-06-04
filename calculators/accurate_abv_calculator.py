@@ -1,6 +1,7 @@
 from .calculator import Calculator
 from .abw_calculator import ABWCalculator
 
+
 class AccurateABVCalculator(Calculator):
     required = {'original-gravity', 'final-gravity'}
     defaults = {'temperature': 20, 'calibration-temperature': 20}

@@ -1,6 +1,12 @@
 from .calculator import Calculator
 from .ebc import EBC as EBCCalculator
 
+from collections import namedtuple
+
+
+Result = namedtuple('Result', ['extract', 'ebc'])
+
+
 class Fermentable(Calculator):
     required = {'name', 'extract-max',
                 'weight', 'ebc'}
@@ -14,17 +20,18 @@ class Fermentable(Calculator):
         kwargs['ebc'] = ebc
         super().__init__(*args, **kwargs)
 
-
     def __str__(self):
         return "{:s} [{:.0f} grams]".format(self['name'], self['weight'])
 
-    def calculate(self):
-        # import traceback; traceback.print_stack()
+    def __repr__(self):
+        return str(self)
 
+    def calculate(self):
         ebc = EBCCalculator(ebc=self['ebc'], weight=self['weight']).calculate()
         extract = self['weight'] * self['extract-max'] / 1000
 
-        return (extract, ebc)
+        return Result(extract, ebc)
+
 
 class Extract(Fermentable):
     def calculate(self):

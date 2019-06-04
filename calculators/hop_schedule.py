@@ -1,4 +1,5 @@
-from .calculator import Calculator, deref
+from .calculator import Calculator
+
 
 class HopSchedule(Calculator):
     required = {'hop-additions', 'gravity', 'volume'}
@@ -7,10 +8,5 @@ class HopSchedule(Calculator):
         return "\n".join(map(str, self['hop-additions']))
 
     def calculate(self):
-        total_ibus = 0.0
-        for addition in self['hop-additions']:
-            addition['gravity'] = self['gravity'] 
-            addition['volume'] = self['volume']
-            total_ibus += addition.calculate()
-
-        return total_ibus
+        return sum(addition.with_(gravity=self['gravity'], volume=self['volume']).calculate()
+                   for addition in self['hop-additions'])

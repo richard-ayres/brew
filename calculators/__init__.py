@@ -12,7 +12,7 @@ from .celsius_to_fahrenheit import celsius_to_fahrenheit
 from .fahrenheit_to_celsius import fahrenheit_to_celsius
 
 from .ibu import IBU
-from .ibu import calculate_IBUs
+from .ibu import calculate_ibu
 
 from .utilization.tinseth import Utilization
 from .utilization.tinseth import utilization
@@ -23,3 +23,6 @@ from .fermentable import Fermentable, Extract
 from .grain_bill import GrainBill
 from .hop_schedule import HopSchedule
 from .hop_addition import HopAddition
+
+from .bitterness_balance import BitternessBalance
+from .attenuation import Attenuation

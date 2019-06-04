@@ -1,5 +1,6 @@
 from .calculator import Calculator
 
+
 class EBC(Calculator):
     required = {'ebc', 'weight'}
 
