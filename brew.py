@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify
+import os.path
+import logging
 
+from flask import Flask, jsonify, redirect, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 import models
 import zymurgy
+import hal
 
 
 app = Flask(__name__)
+
+
+DOCROOT = os.path.dirname(__file__)
 
 
 def get_session():
@@ -19,28 +25,31 @@ def get_session():
 
 @app.route('/')
 def home():
-    return 'Brewtastic!'
+    return redirect('/index.html')
 
 
 @app.route('/fermentable', methods=['GET'])
-def list_fermentables():
+@app.route('/fermentable/<name>', methods=["GET"])
+def get_fermentables(name=None):
     session = get_session()
-    return jsonify([zymurgy.Fermentable.from_model(fermentable).params
-                    for fermentable in session.query(models.Fermentable).all()])
+    query = session.query(models.Fermentable)
 
+    if name:
+        return jsonify(hal.item(query.filter_by(name=name).one(), root=url_for('get_fermentables')))
 
-@app.route('/fermentable/<fermentable>', methods=["GET"])
-def get_fermentable(fermentable):
-    session = get_session()
-    fermentable = zymurgy.Fermentable.from_model(session.query(models.Fermentable).filter_by(name=fermentable).one())
-    return jsonify(fermentable.params)
+    return jsonify(hal.query(query, root=url_for('get_fermentables')))
+
 
 @app.route('/hop', methods=['GET'])
-def list_hops():
+@app.route('/hop/<name>', methods=['GET'])
+def get_hops(name=None):
     session = get_session()
-    hops = [zymurgy.Hop.from_model(hop)
-            for hop in session.query(models.Hop).all()]
-    return jsonify([hop.params for hop in hops])
+    query = session.query(models.Hop)
+
+    if name:
+        return jsonify(hal.item(query.filter_by(name=name).one(), root=url_for('get_hops')))
+
+    return jsonify(hal.query(query, root=url_for('get_hops')))
 
 
 if __name__ == "__main__":
