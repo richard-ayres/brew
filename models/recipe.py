@@ -11,6 +11,6 @@ class Recipe(Base):
     name = Column(String(128), nullable=False)
     profile_id = Column(Integer, ForeignKey('brew_profiles.id'))
 
-    profile = relationship('Profile', backref='recipes')
+    profile = relationship('BrewingProfile', backref='recipes')
     grain_bill = relationship('GrainBill', backref=backref('recipe', uselist=False))
     hop_schedule = relationship('HopSchedule', backref=backref('recipe', uselist=False))

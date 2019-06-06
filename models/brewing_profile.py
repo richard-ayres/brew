@@ -41,9 +41,9 @@ class BrewingProfile(Base):
     sparge_method = Column(Enum(SpargeMethod), nullable=True)
 
     base_water_id = Column(Integer, ForeignKey('waters.id'), nullable=True)
-    base_water = relationship('Water', foreign_keys='base_water_id')
+    base_water = relationship('Water', foreign_keys=[base_water_id])
     target_water_id = Column(Integer, ForeignKey('waters.id'), nullable=True)
-    target_water = relationship('Water', foreign_keys='target_water_id')
+    target_water = relationship('Water', foreign_keys=[target_water_id])
 
     mash_tun_thermal_mass = Column(Float, nullable=True, default=1.0)    # in kg
     mash_ratio = Column(Float, nullable=True, default=2.5)   # water:grain ratio in litres per kg

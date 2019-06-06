@@ -25,4 +25,4 @@ class MashStep(Base):
     duration = Column(Integer, nullable=False)      # in minutes
 
     next_step_id = Column(Integer, ForeignKey('mash_steps.id', ondelete='CASCADE'), nullable=True)
-    next_step = relationship('MashStep', backref=backref('prev_step', uselist=False))
+    next_step = relationship('MashStep')
