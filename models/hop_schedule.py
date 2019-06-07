@@ -6,12 +6,12 @@ from sqlalchemy.orm import relationship
 from .base import Base
 
 
-class HopWhen(enum.Enum):
-    fwh = 1
-    boil = 2
-    whirlpool = 3
-    fermenter = 4
-    dry = 5
+class HopWhen(str, enum.Enum):
+    fwh: str = 'fwh'
+    boil: str = 'boil'
+    whirlpool: str = 'whirlpool'
+    fermenter: str = 'fermenter'
+    dry: str = 'dry'
 
 
 class HopSchedule(Base):

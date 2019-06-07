@@ -6,12 +6,12 @@ from sqlalchemy.orm import relationship, backref
 from .base import Base
 
 
-class StepType(enum.Enum):
-    rest = 1
-    raise_by_infusion = 2
-    boil_decoction = 3          # Pull decoction, boil, add, raising mash to
-    raise_by_direct_heat = 4
-    raise_to_and_mash_out = 5
+class StepType(str, enum.Enum):
+    rest: str = 'rest'
+    raise_by_infusion: str = 'raise_by_infusion'
+    boil_decoction: str = 'boil_decoction'          # Pull decoction, boil, add, raising mash to
+    raise_by_direct_heat: str = 'raise_by_direct_heat'
+    raise_to_and_mash_out: str = 'raise_to_and_mash_out'
 
 
 class MashStep(Base):

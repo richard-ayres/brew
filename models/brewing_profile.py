@@ -6,15 +6,15 @@ from sqlalchemy.orm import relationship, backref
 from .base import Base
 
 
-class RecipeType(enum.Enum):
-    all_grain = 1
-    extract = 2
+class RecipeType(str, enum.Enum):
+    all_grain: str = 'all_grain'
+    extract: str = 'extract'
 
 
-class SpargeMethod(enum.Enum):
-    fly_sparge = 1
-    batch_sparge = 2
-    brew_in_a_bag = 3
+class SpargeMethod(str, enum.Enum):
+    fly_sparge: str = 'fly_sparge'
+    batch_sparge: str = 'batch_sparge'
+    brew_in_a_bag: str = 'brew_in_a_bag'
 
 
 class BrewingProfile(Base):

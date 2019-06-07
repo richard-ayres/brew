@@ -1,25 +1,24 @@
 import enum
 
 from sqlalchemy import Column, Integer, Float, String, Enum
-from sqlalchemy.orm import relationship, backref
 
 from .base import Base
 
 
-class FlocculationLevel(enum.Enum):
-    low = 1
-    medium = 2
-    high = 3
+class FlocculationLevel(str, enum.Enum):
+    low: str = 'low'
+    medium: str = 'medium'
+    high: str = 'high'
 
 
-class YeastType(enum.Enum):
-    dry = 1
-    liquid = 2
+class YeastType(str, enum.Enum):
+    dry: str = 'dry'
+    liquid: str = 'liquid'
 
 
-class BeerType(enum.Enum):
-    ale = 1
-    lager = 2
+class BeerType(str, enum.Enum):
+    ale: str = 'ale'
+    lager: str = 'lager'
 
 
 class Yeast(Base):
