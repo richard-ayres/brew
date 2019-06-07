@@ -11,7 +11,7 @@ def item(item, root):
 
     item['_links'] = {
         'self': {
-            'href': root.rstrip('/') + '/' + url_quote(item['name'])
+            'href': root.rstrip('/') + '/' + url_quote(str(item['id']))
         }
     }
 
