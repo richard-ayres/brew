@@ -2,7 +2,10 @@ from flask import request
 from urllib.parse import quote as url_quote
 
 
-def item(item, root):
+def item(item, href):
+    if isinstance(item, list):
+        return _list(item, href)
+
     if not isinstance(item, dict):
         if hasattr(item, '__table__'):
             item = {column.name: getattr(item, column.name) for column in item.__table__.columns}
@@ -11,52 +14,52 @@ def item(item, root):
 
     item['_links'] = {
         'self': {
-            'href': root.rstrip('/') + '/' + url_quote(str(item['id']))
+            'href': url_quote(href.format(id=int(item['id'])))
         }
     }
 
     return item
 
 
-def _list(items, root, offset=None, limit=None, total=None):
+def _list(items, href, offset=None, limit=None, total=None):
     result = {
         'count': len(items),
-        '_embedded': [item(o, root) for o in items],
+        '_embedded': [item(o, href + '/{id}') for o in items],
         '_links': {}
     }
 
-    if (offset is None or limit is None or total is None):
+    if offset is None or limit is None or total is None:
         result['_links']['self'] = {
-            'href': root
+            'href': url_quote(href)
         }
     else:
         offset = int(offset)
         limit = int(limit)
         total = int(total)
         result['_links']['self'] = {
-            'href': "{url}?offset={offset:d}&limit={limit:d}".format(url=root, offset=offset, limit=limit)
+            'href': url_quote("{url}?offset={offset:d}&limit={limit:d}".format(url=href, offset=offset, limit=limit))
         }
         if offset > 0:
             result['_links']['first'] = {
-                'href': "{url}?offset={offset:d}&limit={limit:d}".format(url=root, offset=0, limit=limit)
+                'href': url_quote("{url}?offset={offset:d}&limit={limit:d}".format(url=href, offset=0, limit=limit))
             }
         if offset + limit < total:
             result['_links']['next'] = {
-                'href': "{url}?offset={offset:d}&limit={limit:d}".format(url=root, offset=offset+limit, limit=limit)
+                'href': url_quote("{url}?offset={offset:d}&limit={limit:d}".format(url=href, offset=offset+limit, limit=limit))
             }
         if offset + limit < total:
             result['_links']['last'] = {
-                'href': "{url}?offset={offset:d}&limit={limit:d}".format(url=root, offset=total-limit, limit=limit)
+                'href': url_quote("{url}?offset={offset:d}&limit={limit:d}".format(url=href, offset=total-limit, limit=limit))
             }
         if offset - limit > 0:
             result['_links']['prev'] = {
-                'href': "{url}?offset={offset:d}&limit={limit:d}".format(url=root, offset=offset-limit, limit=limit)
+                'href': url_quote("{url}?offset={offset:d}&limit={limit:d}".format(url=href, offset=offset-limit, limit=limit))
             }
 
     return result
 
 
-def query(query, root):
+def query(query, href):
     total = query.count()
 
     offset = request.args.get('offset', None)
@@ -65,6 +68,6 @@ def query(query, root):
     if offset is not None and limit is not None:
         query = query.offset(int(offset)).limit(int(limit))
 
-    return _list(query.all(), root=root, limit=limit, offset=offset, total=total)
+    return _list(query.all(), href=href, limit=limit, offset=offset, total=total)
 
 

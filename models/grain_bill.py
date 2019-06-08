@@ -17,3 +17,11 @@ class GrainBill(Base):
 
     fermentable = relationship('Fermentable')
 
+    def __repr__(self):
+        return "Grain bill item: {fermentable} @{weight}g (EBC={ebc}, Extract={extract}, Fermentability={fermentability})".format(
+            fermentable=(self.fermentable.name if self.fermentable else 'Unknown'),
+            weight=self.weight,
+            ebc=(self.ebc if self.ebc is not None else 'inherited'),
+            extract=(self.extract_max if self.extract_max is not None else 'inherited'),
+            fermentability=(self.fermentability if self.fermentability is not None else 'inherited'),
+        )
