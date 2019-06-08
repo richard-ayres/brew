@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
 import os.path
 import logging
+import sys
 
-from flask import Flask, jsonify, redirect, url_for, request
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+import sqlalchemy.exc
+import sqlalchemy.orm.exc
+
+from flask import Flask, jsonify, redirect, request, make_response
 
 import models
-import zymurgy
 import hal
 
+from database import db_session
 
 app = Flask(__name__)
 
 
 DOCROOT = os.path.dirname(__file__)
-
-
-def get_session():
-    engine = create_engine('sqlite:////var/www/brew/brew.sqlite3', echo=True)
-    Session = sessionmaker(bind=engine)
-    return Session()
 
 
 @app.route('/')
@@ -31,8 +27,7 @@ def home():
 @app.route('/fermentable', methods=['GET'])
 @app.route('/fermentable/<id>', methods=["GET"])
 def get_fermentables(id=None):
-    session = get_session()
-    query = session.query(models.Fermentable)
+    query = db_session.query(models.Fermentable)
 
     if id:
         return jsonify(hal.item(query.filter_by(id=id).one(), root=url_for('get_fermentables')))
@@ -43,8 +38,7 @@ def get_fermentables(id=None):
 @app.route('/hop', methods=['GET'])
 @app.route('/hop/<id>', methods=['GET'])
 def get_hops(id=None):
-    session = get_session()
-    query = session.query(models.Hop)
+    query = db_session.query(models.Hop)
 
     if id:
         return jsonify(hal.item(query.filter_by(id=id).one(), root=url_for('get_hops')))
@@ -55,8 +49,7 @@ def get_hops(id=None):
 @app.route('/recipe', methods=['GET'])
 @app.route('/recipe/<id>', methods=['GET'])
 def get_recipe(id=None):
-    session = get_session()
-    query = session.query(models.Recipe)
+    query = db_session.query(models.Recipe)
 
     if id:
         recipe = query.filter_by(id=id).one()
@@ -64,20 +57,19 @@ def get_recipe(id=None):
         result['profile'] = hal.item(recipe.profile, root='/profile')
         return jsonify(result)
 
-    return jsonify(hal.query(query, root=url_for('get_recipe')))
+    return jsonify(hal.query(query, href='/recipe'))
 
 
 @app.route('/recipe', methods=['POST'])
 @app.route('/recipe/<id>', methods=['PUT'])
 def post_recipe(id=None):
-    session = get_session()
 
     if id:
-        recipe = session.query(models.Recipe).filter_by(id=id).one()
+        recipe = db_session.query(models.Recipe).get(id)
 
     else:
         recipe = models.Recipe()
-        session.add(recipe)
+        db_session.add(recipe)
 
     input = request.get_json()
     recipe.name = input['name']
@@ -94,9 +86,8 @@ def post_recipe(id=None):
 
 @app.route('/recipe/<id>', methods=['DELETE'])
 def delete_recipe(id):
-    session = get_session()
-    session.query(models.Recipe).filter_by(id=id).delete()
-    session.commit()
+    db_session.query(models.Recipe).get(id).delete()
+    db_session.commit()
     return get_recipe()
 
 

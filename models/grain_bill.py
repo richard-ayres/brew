@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .base import Base
+from database import Base
 
 
 class GrainBill(Base):

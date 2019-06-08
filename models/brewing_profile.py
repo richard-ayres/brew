@@ -3,7 +3,7 @@ import enum
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Enum
 from sqlalchemy.orm import relationship, backref
 
-from .base import Base
+from database import Base
 
 
 class RecipeType(str, enum.Enum):

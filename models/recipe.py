@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
-from .base import Base
+from database import Base
 
 
 class Recipe(Base):

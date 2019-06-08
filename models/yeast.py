@@ -2,7 +2,7 @@ import enum
 
 from sqlalchemy import Column, Integer, Float, String, Enum
 
-from .base import Base
+from database import Base
 
 
 class FlocculationLevel(str, enum.Enum):

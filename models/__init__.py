@@ -1,4 +1,3 @@
-from .base import Base
 from .fermentable import Fermentable
 from .hop import Hop
 from .grain_bill import GrainBill

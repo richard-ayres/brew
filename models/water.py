@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, String
 
-from .base import Base
+from database import Base
 
 
 class Water(Base):

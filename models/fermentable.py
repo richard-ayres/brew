@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float
 
-from .base import Base
+from database import Base
 
 
 class Fermentable(Base):
