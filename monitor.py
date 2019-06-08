@@ -8,7 +8,7 @@ def _monitor(path):
     print("monitoring", path)
     for event in i.event_gen(yield_nones=False):
         (header, type_names, watch_path, filename) = event
-        if 'IN_CLOSE_WRITE' in type_names or 'IN_MODIFY' in type_names:
+        if ('IN_CLOSE_WRITE' in type_names or 'IN_MODIFY' in type_names) and os.path.splitext(filename) == '.py':
             prefix = 'monitor (pid=%d):' % os.getpid()
             print("%s %s/%s changed," % (prefix, path, filename), 'restarting!')
             os.kill(os.getpid(), signal.SIGKILL)
