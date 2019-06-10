@@ -1,12 +1,12 @@
-from sqlalchemy import Column, Integer, Float, String
+from sqlalchemy import Column, Float, String
 
-from database import Base
+from database import Base, UUID, uuidgen
 
 
 class Water(Base):
     __tablename__ = 'waters'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID, primary_key=True, default=uuidgen)
     name = Column(String(128), nullable=False)
 
     # All figures in ppm

@@ -1,9 +1,9 @@
 import enum
 
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Enum
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 
-from database import Base
+from database import Base, UUID, uuidgen
 
 
 class RecipeType(str, enum.Enum):
@@ -20,7 +20,7 @@ class SpargeMethod(str, enum.Enum):
 class BrewingProfile(Base):
     __tablename__ = 'brew_profiles'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID, primary_key=True, default=uuidgen)
     name = Column(String, nullable=False)
 
     # All volumes in litres

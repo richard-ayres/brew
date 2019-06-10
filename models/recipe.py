@@ -1,15 +1,16 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
-from database import Base
+from database import Base, UUID, uuidgen
 
 
 class Recipe(Base):
-    __tablename__ = 'recipe'
+    __tablename__ = 'recipes'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID, primary_key=True, default=uuidgen)
+
     name = Column(String(128), nullable=False)
-    profile_id = Column(Integer, ForeignKey('brew_profiles.id'))
+    profile_id = Column(UUID, ForeignKey('brew_profiles.id'))
 
     profile = relationship('BrewingProfile', backref='recipes')
     grain_bill = relationship('GrainBill', backref=backref('recipe', uselist=False))

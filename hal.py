@@ -14,7 +14,7 @@ def item(item, href):
 
     item['_links'] = {
         'self': {
-            'href': url_quote(href.format(id=int(item['id'])))
+            'href': url_quote(href.format(id=item['id']))
         }
     }
 

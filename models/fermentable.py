@@ -1,12 +1,12 @@
 from sqlalchemy import Column, Integer, String, Float
 
-from database import Base
+from database import Base, UUID, uuidgen
 
 
 class Fermentable(Base):
     __tablename__ = 'fermentables'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID, primary_key=True, default=uuidgen)
     name = Column(String, unique=True, nullable=False)
     extract_max = Column(Float, nullable=False)
     ebc = Column(Float, nullable=False)

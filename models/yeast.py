@@ -1,8 +1,8 @@
 import enum
 
-from sqlalchemy import Column, Integer, Float, String, Enum
+from sqlalchemy import Column, Float, String, Enum
 
-from database import Base
+from database import Base, UUID, uuidgen
 
 
 class FlocculationLevel(str, enum.Enum):
@@ -22,12 +22,12 @@ class BeerType(str, enum.Enum):
 
 
 class Yeast(Base):
-    __tablename__ = 'yeast'
+    __tablename__ = 'yeasts'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID, primary_key=True, default=uuidgen)
     name = Column(String(128), nullable=False)
 
     attenuation = Column(Float, nullable=False)     # attenuation, 0.0 -> 1.0
-    flocculation = Column(Enum(FlocculationLevel), nullable=False)
+    flocculation = Column(Enum(FlocculationLevel), nullable=False, default='medium')
     type = Column(Enum(YeastType), nullable=False, default='dry')
     beer_type = Column(Enum(BeerType), nullable=False, default='ale')
