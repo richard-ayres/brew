@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, String, Float, Boolean
 
 from database import Base, UUID, uuidgen
 
@@ -11,4 +11,5 @@ class Fermentable(Base):
     extract_max = Column(Float, nullable=False)
     ebc = Column(Float, nullable=False)
     fermentability = Column(Float, default=0.62)
-    is_extract = Column(Integer, default=0)
+    is_extract = Column(Boolean, default=False)
+    requires_mash = Column(Boolean, default=True)
