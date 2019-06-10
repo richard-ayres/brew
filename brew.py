@@ -3,6 +3,8 @@ import os.path
 import logging
 import sys
 
+from datetime import datetime
+
 import sqlalchemy.exc
 import sqlalchemy.orm.exc
 
@@ -138,6 +140,7 @@ def post_recipe(id=None):
 @app.route('/recipe/<id>', methods=['DELETE'])
 def delete_recipe(id):
     db_session.query(models.UserRecipeLink).filter_by(recipe_id=id).delete()
+    db_session.query(models.Batch).filter_by(recipe_id=id).update({'recipe_id': None})
     db_session.query(models.Recipe).filter_by(id=id).delete()
     db_session.commit()
     return get_recipe()
@@ -152,6 +155,75 @@ def get_recipe_profile(id):
 @app.route('/profile/<id>', methods=['GET'])
 def get_profile(id):
     return jsonify(hal.item(db_session.query(models.BrewingProfile).get(id), href='/profile/{id}'.format(id=id)))
+
+
+@app.route('/batch', methods=["POST"])
+def new_batch():
+    req = request.get_json()
+    query = db_session.query(models.Recipe)
+    query = user_restrict(query, models.UserRecipeLink)
+
+    try:
+        recipe = query.filter(models.Recipe.id == req['recipe_id']).one()
+
+        batch = models.Batch(**req)
+
+        if not batch.profile_id:
+            batch.actual_profile = recipe.profile
+
+        if not batch.brew_date:
+
+            batch.brew_date = datetime.now()
+
+        db_session.add(batch)
+        db_session.add(models.UserBatchLink(user=get_logged_in_user(), batch=batch))
+        db_session.commit()
+
+        return jsonify(hal.item(batch, href='/batch/{id}'.format(id=batch.id)))
+
+    except KeyError:
+        db_session.rollback()
+        return make_response(('Must supply recipe ID', 401))
+
+    except sqlalchemy.orm.exc.NoResultFound:
+        db_session.rollback()
+        return make_response(('Recipe not found', 404))
+
+    except:
+        db_session.rollback()
+        raise
+
+
+@app.route('/batch/<id>', methods=["GET"])
+def get_batch(id):
+    return jsonify(hal.item(db_session.query(models.Batch).get(id), href='/batch/{id}'.format(id=id)))
+
+
+@app.route('/batch/<id>', methods=["PUT"])
+def put_batch(id):
+    req = request.get_json()
+
+    try:
+        query = db_session.query(models.Batch)
+        query = user_restrict(query, models.UserBatchLink)
+        batch = query.filter(models.Batch.id==id).one()
+
+        params = {'brew_date', 'rack_date', 'package_date',
+                  'pre_boil_gravity', 'original_gravity', 'final_gravity'}
+        for param in params & req.keys():
+            setattr(batch, param, req[param])
+
+        db_session.commit()
+
+        return jsonify(hal.item(batch, href='/batch/{id}'.format(id=id)))
+
+    except sqlalchemy.orm.exc.NoResultFound:
+        db_session.rollback()
+        return make_response(('Batch not found', 404))
+
+    except:
+        db_session.rollback()
+        raise
 
 
 if __name__ == "__main__":
