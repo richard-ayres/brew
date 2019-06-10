@@ -8,3 +8,7 @@ from .brewing_profile import BrewingProfile
 from .mash_step import MashStep
 from .mash_schedule import MashSchedule
 from .water import Water
+from .user import User
+from .user_profile import UserProfileLink
+from .user_recipe import UserRecipeLink
+from .user_batch import UserBatchLink

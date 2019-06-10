@@ -12,6 +12,7 @@ import models
 import hal
 
 from database import db_session
+from user import get_logged_in_user, user_restrict
 
 app = Flask(__name__)
 
@@ -50,6 +51,7 @@ def get_hops(id=None):
 @app.route('/recipe/<id>', methods=['GET'])
 def get_recipe(id=None):
     query = db_session.query(models.Recipe)
+    query = user_restrict(query, models.UserRecipeLink)
 
     if id:
         recipe = query.get(id)
@@ -112,6 +114,9 @@ def post_recipe(id=None):
             for hop in recipe.hop_schedule:
                 db_session.delete(hop)
             db_session.add_all(map(load_hop_schedule, input['hop_schedule']))
+        user = get_logged_in_user()
+        db_session.add(models.UserProfileLink(user=user, profile=recipe.profile))
+        db_session.add(models.UserRecipeLink(user=user, recipe=recipe))
 
         db_session.commit()
 
@@ -132,7 +137,8 @@ def post_recipe(id=None):
 
 @app.route('/recipe/<id>', methods=['DELETE'])
 def delete_recipe(id):
-    db_session.query(models.Recipe).get(id).delete()
+    db_session.query(models.UserRecipeLink).filter_by(recipe_id=id).delete()
+    db_session.query(models.Recipe).filter_by(id=id).delete()
     db_session.commit()
     return get_recipe()
 
