@@ -6,6 +6,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 
+import logging
+import datetime
+import arrow
+
 engine = create_engine('sqlite:////var/www/brew/brew.sqlite3', echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 
@@ -33,12 +37,35 @@ class UUID(types.UserDefinedType):
                 value = str(value)
             if value is None:
                 return None
+            assert len(value) == self.length
             return value.lower()
         return process
 
     def result_processor(self, dialect, coltype):
         def process(value):
             assert isinstance(value, str)
+            assert len(value) == self.length
             return uuid.UUID(value)
         return process
 
+
+class ISODateTime(types.TypeDecorator):
+    impl = types.DateTime
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return None
+        assert isinstance(value, str)
+        try:
+            return arrow.get(value).datetime
+
+        except arrow.parser.ParserError as ex:
+            logging.error("Unable to parse date string: {}".format(str(ex)))
+            return None
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return None
+
+        assert isinstance(value, datetime.datetime)
+        return value.isoformat()

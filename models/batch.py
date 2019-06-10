@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 
-from database import Base, UUID, uuidgen
+from database import Base, UUID, uuidgen, ISODateTime
 
 
 class Batch(Base):
@@ -12,9 +12,9 @@ class Batch(Base):
     recipe_id = Column(UUID, ForeignKey('recipes.id', ondelete='SET NULL'), nullable=True)
     recipe = relationship('Recipe', backref='batches')
 
-    brew_date = Column(DateTime, nullable=True)
-    rack_date = Column(DateTime, nullable=True)
-    package_date = Column(DateTime, nullable=True)
+    brew_date = Column(ISODateTime, nullable=True)
+    rack_date = Column(ISODateTime, nullable=True)
+    package_date = Column(ISODateTime, nullable=True)
 
     # Actuals
     profile_id = Column(UUID, ForeignKey('brew_profiles.id', ondelete='RESTRICT'))
