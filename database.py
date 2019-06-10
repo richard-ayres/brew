@@ -31,6 +31,8 @@ class UUID(types.UserDefinedType):
         def process(value):
             if isinstance(value, uuid.UUID):
                 value = str(value)
+            if value is None:
+                return None
             return value.lower()
         return process
 
