@@ -144,22 +144,43 @@ def post_recipe(id=None):
 
 @app.route('/recipe/<id>', methods=['DELETE'])
 def delete_recipe(id):
-    db_session.query(models.UserRecipeLink).filter_by(recipe_id=id).delete()
-    db_session.query(models.Batch).filter_by(recipe_id=id).update({'recipe_id': None})
-    db_session.query(models.Recipe).filter_by(id=id).delete()
-    db_session.commit()
+    try:
+        recipe = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink).filter(models.Recipe.id==id).one()
+
+        db_session.query(models.UserRecipeLink).filter_by(recipe_id=recipe.id).delete()
+        db_session.query(models.Batch).filter_by(recipe_id=recipe.id).update({'recipe_id': None})
+        db_session.query(models.HopSchedule).filter_by(recipe_id=recipe.id).delete()
+        db_session.query(models.GrainBill).filter_by(recipe_id=recipe.id).delete()
+        db_session.query(models.Recipe).filter_by(id=recipe.id).delete()
+        db_session.commit()
+
+    except sqlalchemy.orm.exc.NoResultFound:
+        db_session.rollback()
+        return make_response(('Recipe not found', 404))
+
     return get_recipe()
 
 
 @app.route('/recipe/<id>/profile', methods=['GET'])
 def get_recipe_profile(id):
-    recipe = db_session.query(models.Recipe).get(id)
-    return jsonify(hal.item(recipe.profile, href='/profile/{id}'.format(id=recipe.profile_id)))
+    try:
+        recipe = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink).filter(models.Recipe.id==id).one()
+        return jsonify(hal.item(recipe.profile, href='/profile/{id}'.format(id=recipe.profile_id)))
+
+    except sqlalchemy.orm.exc.NoResultFound:
+        db_session.rollback()
+        return make_response(('Recipe not found', 404))
 
 
 @app.route('/recipe/<id>/hop_schedule', methods=['GET'])
 def get_recipe_hop_schedule(id):
-    return make_response(('Not implemented yet', 500))
+    try:
+        recipe = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink).filter(models.Recipe.id==id).one()
+        return jsonify(hal.item(recipe.hop_schedule, href='/recipe/{recipe_id}/hop_schedule'.format(recipe_id=id)))
+
+    except sqlalchemy.orm.exc.NoResultFound:
+        db_session.rollback()
+        return make_response(('Recipe not found', 404))
 
 
 @app.route('/recipe/<id>/grain_bill', methods=['GET'])
@@ -169,16 +190,21 @@ def get_recipe_grain_bill(id):
 
 @app.route('/profile/<id>', methods=['GET'])
 def get_profile(id):
-    return jsonify(hal.item(db_session.query(models.BrewingProfile).get(id), href='/profile/{id}'.format(id=id)))
+    try:
+        profile = user_restrict(db_session.query(models.BrewingProfile), models.UserProfileLink).filter(models.BrewingProfile.id==id).one()
+        return jsonify(hal.item(profile, href='/profile/{id}'.format(id=id)))
+
+    except sqlalchemy.orm.exc.NoResultFound:
+        db_session.rollback()
+        return make_response(('Profile not found', 404))
 
 
 @app.route('/batch', methods=["POST"])
 def new_batch():
     req = request.get_json()
-    query = db_session.query(models.Recipe)
-    query = user_restrict(query, models.UserRecipeLink)
 
     try:
+        query = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink)
         recipe = query.filter(models.Recipe.id == req['recipe_id']).one()
 
         batch = models.Batch(**req)
@@ -187,7 +213,6 @@ def new_batch():
             batch.actual_profile = recipe.profile
 
         if not batch.brew_date:
-
             batch.brew_date = datetime.now()
 
         db_session.add(batch)
@@ -211,7 +236,15 @@ def new_batch():
 
 @app.route('/batch/<id>', methods=["GET"])
 def get_batch(id):
-    return jsonify(hal.item(db_session.query(models.Batch).get(id), href='/batch/{id}'.format(id=id)))
+    try:
+        batch = user_restrict(db_session.query(models.Batch), models.UserBatchLink).filter(models.Batch.id == id).one()
+        result = hal.item(batch, href='/batch/{id}'.format(id=id))
+        result['profile'] = hal.item(batch.actual_profile, href='/profile/{id}'.format(id=batch.profile_id))
+        result['recipe'] = hal.item(batch.recipe, href='/recipe/{id}'.format(id=batch.recipe_id))
+        return jsonify(result)
+
+    except sqlalchemy.orm.exc.NoResultFound:
+        return make_response(('Batch not found', 404))
 
 
 @app.route('/batch/<id>', methods=["PUT"])
@@ -219,9 +252,7 @@ def put_batch(id):
     req = request.get_json()
 
     try:
-        query = db_session.query(models.Batch)
-        query = user_restrict(query, models.UserBatchLink)
-        batch = query.filter(models.Batch.id==id).one()
+        batch = user_restrict(db_session.query(models.Batch), models.UserBatchLink).filter(models.Batch.id == id).one()
 
         params = {'brew_date', 'rack_date', 'package_date',
                   'pre_boil_gravity', 'original_gravity', 'final_gravity'}
