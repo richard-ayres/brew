@@ -1,73 +1,62 @@
 """This module enumerates the standard fermentables (for now)"""
-import models
-import zymurgy
-
+from models import Fermentable as FermentableModel
+from zymurgy import Fermentable
 from database import db_session
 
-all_fermentables = dict()
 
-
-def load_fermentable(name):
-    fermentable = db_session.query(models.Fermentable).filter_by(name=name).one()
-    fermentable = zymurgy.Fermentable.from_model(fermentable)
-    all_fermentables[name] = fermentable
-    return fermentable
-
-
-def revise_fermentable(old_fermentable, name, **kwargs):
-    return load_fermentable(name)
+all_fermentables = {malt.name: Fermentable.from_model(malt) for malt in db_session.query(FermentableModel).all()}
 
 
 """Base malts - mashing required"""
-MALT_AMBER             = load_fermentable('Amber malt')
-MALT_BROWN             = load_fermentable('Brown malt')
-MALT_LAGER             = load_fermentable('Lager malt')
-MALT_MILD              = load_fermentable('Mild ale malt')
-MALT_MUNICH            = load_fermentable('Munich malt')
-MALT_PALE              = load_fermentable('Pale malt')
-MALT_PALE_LOCOLUR      = revise_fermentable(MALT_PALE, name='Pale malt (low colour)', ebc=2.5)
-MALT_VIENNA            = load_fermentable('Vienna malt')
-MALT_WHEAT             = load_fermentable('Wheat malt')
+MALT_AMBER             = all_fermentables['Amber malt']
+MALT_BROWN             = all_fermentables['Brown malt']
+MALT_LAGER             = all_fermentables['Lager malt']
+MALT_MILD              = all_fermentables['Mild ale malt']
+MALT_MUNICH            = all_fermentables['Munich malt']
+MALT_PALE              = all_fermentables['Pale malt']
+MALT_PALE_LOCOLUR      = all_fermentables['Pale malt (low colour)']
+MALT_VIENNA            = all_fermentables['Vienna malt']
+MALT_WHEAT             = all_fermentables['Wheat malt']
 
 """Caramelized malts - no mashing required"""
-MALT_BLACK             = load_fermentable('Black malt')
-MALT_CHOCOLATE         = load_fermentable('Chocolate malt')
-MALT_CARAMALT          = load_fermentable('Caramalt')
-MALT_CARAPILS          = load_fermentable('Carapils')
-MALT_CRYSTAL_LIGHT     = load_fermentable('Crystal malt (light)')
-MALT_CRYSTAL_MED       = load_fermentable('Crystal malt (medium)')
-MALT_CRYSTAL_DARK      = load_fermentable('Crystal malt (dark)')
-MALT_CRYSTAL           = MALT_CRYSTAL_MED
-MALT_ROAST_BARLEY      = load_fermentable('Roast barley')
+MALT_BLACK             = all_fermentables['Black malt']
+MALT_CHOCOLATE         = all_fermentables['Chocolate malt']
+MALT_CARAMALT          = all_fermentables['Caramalt']
+MALT_CARAPILS          = all_fermentables['Carapils']
+MALT_CRYSTAL_LIGHT     = all_fermentables['Crystal malt (light)']
+MALT_CRYSTAL_MED       = all_fermentables['Crystal malt (medium)']
+MALT_CRYSTAL_DARK      = all_fermentables['Crystal malt (dark)']
+MALT_CRYSTAL           = all_fermentables['Crystal malt']
+MALT_ROAST_BARLEY      = all_fermentables['Roast barley']
 
 """Adjuncts - need mashing with base malts"""
-ADJ_FLAKED_BARLEY      = load_fermentable('Flaked barley')
-ADJ_FLAKED_MAIZE       = load_fermentable('Flaked maize')
-ADJ_FLAKED_RICE        = load_fermentable('Flaked rice')
-ADJ_TORRIFIED_BARLEY   = revise_fermentable(ADJ_FLAKED_BARLEY, name='Torrified barley (not sure correct values)')
-ADJ_FLAKED_OATS        = load_fermentable('Flaked oats')
-ADJ_TORRIFIED_WHEAT    = load_fermentable('Torrified wheat')
-ADJ_FLAKED_WHEAT       = load_fermentable('Flaked wheat')
+ADJ_FLAKED_BARLEY      = all_fermentables['Flaked barley']
+ADJ_FLAKED_MAIZE       = all_fermentables['Flaked maize']
+ADJ_FLAKED_RICE        = all_fermentables['Flaked rice']
+ADJ_TORRIFIED_BARLEY   = all_fermentables['Torrified barley (not sure correct values)']
+ADJ_FLAKED_OATS        = all_fermentables['Flaked oats']
+ADJ_TORRIFIED_WHEAT    = all_fermentables['Torrified wheat']
+ADJ_FLAKED_WHEAT       = all_fermentables['Flaked wheat']
 
 """Sugars (incl. malt extract) - no mashing required"""
-SUGAR_LACTOSE          = load_fermentable('Lactose')
-SUGAR_BROWN_LIGHT      = load_fermentable('Brown sugar (light)')
-SUGAR_BROWN_MEDIUM     = load_fermentable('Brown sugar (medium)')
-SUGAR_BROWN_DARK       = load_fermentable('Brown sugar (dark)')
-SUGAR_CANE             = load_fermentable('Cane sugar')
-SUGAR_INVERT           = load_fermentable('Invert sugar')
+SUGAR_LACTOSE          = all_fermentables['Lactose']
+SUGAR_BROWN_LIGHT      = all_fermentables['Brown sugar (light)']
+SUGAR_BROWN_MEDIUM     = all_fermentables['Brown sugar (medium)']
+SUGAR_BROWN_DARK       = all_fermentables['Brown sugar (dark)']
+SUGAR_CANE             = all_fermentables['Cane sugar']
+SUGAR_INVERT           = all_fermentables['Invert sugar']
 
-LME_LIGHT              = load_fermentable('Liquid malt extract (light)')
-LME_EXTRA_LIGHT        = revise_fermentable(LME_LIGHT, name='Liquid malt extract (extra light)', ebc=5.5)
-LME_MEDIUM             = revise_fermentable(LME_LIGHT, name='Liquid malt extract (amber/medium)', ebc=18)
-LME_DARK               = revise_fermentable(LME_LIGHT, name='Liquid malt extract (dark)', ebc=55)
-LME_WHEAT              = revise_fermentable(LME_LIGHT, name='Liquid malt extract (wheat)', ebc=9)
+LME_LIGHT              = all_fermentables['Liquid malt extract (light)']
+LME_EXTRA_LIGHT        = all_fermentables['Liquid malt extract (extra light)']
+LME_MEDIUM             = all_fermentables['Liquid malt extract (amber/medium)']
+LME_DARK               = all_fermentables['Liquid malt extract (dark)']
+LME_WHEAT              = all_fermentables['Liquid malt extract (wheat)']
 
-DME_LIGHT              = load_fermentable('Dried malt extract (light)')
-DME_EXTRA_LIGHT        = revise_fermentable(DME_LIGHT, name='Dried malt extract (extra light)', ebc=7.5)
-DME_MEDIUM             = revise_fermentable(DME_LIGHT, name='Dried malt extract (medium)', ebc=34)
-DME_DARK               = revise_fermentable(DME_LIGHT, name='Dried malt extract (dark)', ebc=57)
-DME_EXTRA_DARK         = revise_fermentable(DME_LIGHT, name='Dried malt extract (extra dark)', ebc=95)
-DME_WHEAT              = revise_fermentable(DME_LIGHT, name='Dried malt extract (wheat)', ebc=6)
+DME_LIGHT              = all_fermentables['Dried malt extract (light)']
+DME_EXTRA_LIGHT        = all_fermentables['Dried malt extract (extra light)']
+DME_MEDIUM             = all_fermentables['Dried malt extract (medium)']
+DME_DARK               = all_fermentables['Dried malt extract (dark)']
+DME_EXTRA_DARK         = all_fermentables['Dried malt extract (extra dark)']
+DME_WHEAT              = all_fermentables['Dried malt extract (wheat)']
 
 
