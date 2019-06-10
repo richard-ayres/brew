@@ -1,0 +1,336 @@
+fermentables:
+  - name: Amber malt
+    id: 9ee8ffef-4ba3-4ab5-92a6-2f3c14c6bb78
+    extract_max: 269
+    ebc: 65
+    fermentability: 0.62
+    is_extract: 0
+  - {name: "Brown malt", id: "c2c28ea5-1ce8-4479-8e2c-81907bb48773", extract_max: 270, ebc: 110, fermentability: 0.62}
+  - name: Lager malt
+    id: e7edc180-36b4-4926-b847-005420976c1c
+    extract_max: 300
+    fermentability: 0.62
+    ebc: 2.8
+  - name: Mild ale malt
+    id: 00e208b4-b58d-4c34-bbe1-5b7a22453ee9
+    extract_max: 295
+    fermentability: 0.62
+    ebc: 7
+  - name: Munich malt
+    id: 26d5b6b4-2376-4041-adc1-888222eaf1f3
+    extract_max: 295
+    fermentability: 0.62
+    ebc: 15
+  - name: Pale malt
+    id: d376e2ee-a0ec-4b2a-bbd8-6bcfab63fe5b
+    extract_max: 300
+    fermentability: 0.62
+    ebc: 5
+  - name: Pale malt (low colour)
+    id: 0470593f-1468-48b2-a144-d131277ade68
+    extract_max: 300
+    fermentability: 0.62
+    ebc: 2.5
+  - name: Vienna malt
+    id: 06d65bb3-1721-4e4f-9506-667bb1e5d304
+    extract_max: 295
+    fermentability: 0.62
+    ebc: 9
+  - name: Wheat malt
+    id: 57592b8f-0491-4ee2-a103-d12ad5f6a5a9
+    extract_max: 305
+    fermentability: 0.62
+    ebc: 9
+  - name: Black malt
+    id: c7d17fb9-fb23-4d8f-9cd8-141116050c06
+    extract_max: 259
+    fermentability: 0.62
+    ebc: 1280
+    requires_mash: 0
+  - name: Chocolate malt
+    id: e814b041-5333-4994-bbcc-cfcdc0809f90
+    extract_max: 285
+    fermentability: 0.62
+    ebc: 763
+    requires_mash: 0
+  - name: Caramalt
+    id: 914654ad-18de-4db3-89a3-4361393896b2
+    extract_max: 275
+    fermentability: 0.62
+    ebc: 25
+    requires_mash: 0
+  - name: Carapils
+    id: c1e37e7b-2e0f-441c-9e1a-5409b216835c
+    extract_max: 268
+    fermentability: 0.62
+    requires_mash: 0
+    ebc: 3
+  - name: Crystal malt (light)
+    id: 61d1f092-516f-475b-8126-59b8bd29c3ee
+    extract_max: 283
+    fermentability: 0.62
+    ebc: 77
+    requires_mash: 0
+  - name: Crystal malt (medium)
+    id: 7bb2e9a1-7eb0-4e26-9bfc-d3237d1a61ad
+    extract_max: 272
+    fermentability: 0.62
+    ebc: 104
+    requires_mash: 0
+  - name: Crystal malt (dark)
+    id: 6b12c7fb-d525-4ff6-9994-966ec116ca52
+    extract_max: 271
+    fermentability: 0.62
+    ebc: 148
+    requires_mash: 0
+  - name: Crystal malt
+    id: 7bcd0b90-ff14-401e-86da-6f636fa52446
+    extract_max: 272
+    fermentability: 0.62
+    ebc: 104
+    requires_mash: 0
+  - name: Roast barley
+    id: 89f7396b-98b7-4ce8-b5f5-f87153052039
+    extract_max: 276
+    fermentability: 0.62
+    ebc: 903
+    requires_mash: 0
+  - name: Torrified barley (not sure correct values)
+    id: 9edcfb43-4e56-4b11-b49e-7d800c7ba9e9
+    extract_max: 260
+    fermentability: 0.62
+    ebc: 2.5
+  - name: Flaked barley
+    id: 4d0946e7-08a8-4d7c-b2d7-675c39549c52
+    extract_max: 260
+    fermentability: 0.62
+    ebc: 2.5
+  - name: Flaked maize
+    id: 4a040c7b-e8ed-4840-b2bc-7c98c0ead132
+    extract_max: 313
+    fermentability: 0.62
+    ebc: 1
+  - name: Flaked rice
+    id: 424d1de3-b05a-4a22-9c29-b16dc603d739
+    extract_max: 310
+    fermentability: 0.62
+    ebc: 0
+  - name: Flaked oats
+    id: 61f198ef-82e0-4655-baf9-dab72f15a860
+    extract_max: 245
+    fermentability: 0.62
+    ebc: 1.5
+  - name: Torrified wheat
+    id: 41b2d092-da7f-4674-8596-af791e45348b
+    extract_max: 288
+    fermentability: 0.62
+    ebc: 4
+  - name: Flaked wheat
+    id: 8cde9527-1b9e-4710-b19a-c8056b694dc5
+    extract_max: 173
+    fermentability: 0.62
+    ebc: 0
+  - name: Lactose
+    id: d7b00d7e-e1d2-4bca-97c0-eae3a2b6a04f
+    extract_max: 380
+    fermentability: 0
+    ebc: 30
+    is_extract: 1
+    requires_mash: 0
+  - name: Brown sugar (light)
+    id: 13acb05f-16d9-4722-a19c-f27575655578
+    extract_max: 370
+    fermentability: 1
+    ebc: 16
+    is_extract: 1
+    requires_mash: 0
+  - name: Brown sugar (medium)
+    id: d8d05d84-3101-49a9-bc65-50aa254a687e
+    extract_max: 370
+    fermentability: 1
+    ebc: 45
+    is_extract: 1
+    requires_mash: 0
+  - name: Brown sugar (dark)
+    id: a011efbf-73dc-4136-8fe7-92689a67c6a3
+    extract_max: 370
+    fermentability: 1
+    ebc: 90
+    is_extract: 1
+    requires_mash: 0
+  - name: Cane sugar
+    id: 651401c7-cf63-45fe-86e8-2b13f238f464
+    extract_max: 375
+    fermentability: 1
+    ebc: 0
+    is_extract: 1
+    requires_mash: 0
+  - name: Malto-dextrin
+    id: 9ae54e70-3378-4d89-af14-95965cdea546
+    extract_max: 319
+    fermentability: 0.35
+    ebc: 0
+    is_extract: 1
+    requires_mash: 0
+  - name: Candi Sugar Pale
+    id: 3a36004c-4a50-4226-a340-f5aaf82d5005
+    extract_max: 319
+    fermentability: 0.8
+    ebc: 1.2
+    is_extract: 1
+    requires_mash: 0
+  - name: Candi Sugar Amber
+    id: a1587470-55be-4273-8da1-20ebb17073c7
+    extract_max: 319
+    fermentability: 0.8
+    ebc: 198.6
+    is_extract: 1
+    requires_mash: 0
+  - name: Candi Sugar Dark
+    id: 2baa1ee9-97c4-446d-91e4-eaacf718156d
+    extract_max: 319
+    fermentability: 0.8
+    ebc: 732.4
+    is_extract: 1
+    requires_mash: 0
+  - name: Invert sugar
+    id: d40dea71-5508-4176-bfaf-96c11e237a2f
+    extract_max: 319
+    fermentability: 0.85
+    ebc: 0
+    is_extract: 1
+    requires_mash: 0
+  - name: Liquid malt extract (light)
+    id: cac2ed87-1390-441f-af3a-a4bbd85a69fc
+    extract_max: 310
+    fermentability: 0.62
+    ebc: 10
+    is_extract: 1
+    requires_mash: 0
+  - name: Liquid malt extract (amber/medium)
+    id: 1ca843a4-af5a-4ee0-b98a-d329e531a51a
+    extract_max: 310
+    fermentability: 0.62
+    ebc: 18
+    is_extract: 1
+    requires_mash: 0
+  - name: Liquid malt extract (extra light)
+    id: cbb471f7-517d-43a7-8474-51a05ec660e8
+    extract_max: 310
+    fermentability: 0.62
+    ebc: 5.5
+    is_extract: 1
+    requires_mash: 0
+  - name: Liquid malt extract (dark)
+    id: 6c210352-8b76-4232-9fd1-919c77c665e1
+    extract_max: 310
+    fermentability: 0.62
+    ebc: 55
+    is_extract: 1
+    requires_mash: 0
+  - name: Liquid malt extract (wheat)
+    id: b407cc3f-bd57-440c-a223-1d826a56bc56
+    extract_max: 310
+    fermentability: 0.62
+    ebc: 9
+    is_extract: 1
+    requires_mash: 0
+  - name: Dried malt extract (light)
+    id: 56166272-5727-420e-afbb-5585956ff201
+    extract_max: 365
+    fermentability: 0.62
+    ebc: 11
+    is_extract: 1
+    requires_mash: 0
+  - name: Dried malt extract (extra light)
+    id: cdda5b78-287b-475f-90fc-c18383a0c0c6
+    extract_max: 365
+    fermentability: 0.62
+    ebc: 7.5
+    is_extract: 1
+    requires_mash: 0
+  - name: Dried malt extract (medium)
+    id: 4f96bc8b-d988-4148-af3e-e6912952cb79
+    extract_max: 365
+    fermentability: 0.62
+    ebc: 34
+    is_extract: 1
+    requires_mash: 0
+  - name: Dried malt extract (dark)
+    id: 8d537941-5977-4382-9c6e-9707f03e1c57
+    extract_max: 365
+    fermentability: 0.62
+    ebc: 57
+    is_extract: 1
+    requires_mash: 0
+  - name: Dried malt extract (extra dark)
+    id: 00bc520b-3c8b-4fd0-8e3b-a10786285882
+    extract_max: 365
+    fermentability: 0.62
+    ebc: 95
+    is_extract: 1
+    requires_mash: 0
+  - name: Dried malt extract (wheat)
+    id: 289f5b57-627e-4362-a81a-717ad5d5235e
+    extract_max: 365
+    fermentability: 0.62
+    ebc: 6
+    is_extract: 1
+    requires_mash: 0
+
+hops:
+  - name: Brewers Gold
+    alpha: 5.5
+    id: 1deb7f6c-bc28-4314-a8ad-9e1edeffee98
+  - name: Bramling Cross
+    alpha: 6.0
+    id: d1de8e31-3c9b-4e8a-9703-9511a84266a3
+  - name: Bullion
+    alpha: 8
+    id: 19f8f62e-7d32-455d-b3c1-eaac23d03633
+  - name: Challenger
+    alpha: 7.1
+    id: e0db068f-2489-4e22-8234-24d3ed809409
+  - name: Goldings (East Kent)
+    alpha: 5
+    id: f87cd452-21e2-4419-8a2b-f41b4b6bfce1
+  - name: Fuggles
+    alpha: 4.5
+    id: acdef354-2e7a-4ab8-8e04-79313abd7f37
+  - name: Goldings (Worc.)
+    alpha: 5.3
+    id: c1ad150b-62e9-4ca2-bc90-ee7489488822
+  - name: Hallertauer
+    alpha: 4.5
+    id: 24fa0787-7a38-4811-b001-3d2b7bc64709
+  - name: North Brewer
+    alpha: 7.5
+    id: 3407bb56-715d-4c26-9f2f-881fc12abf63
+  - name: Northdown
+    alpha: 9.25
+    id: 386f193a-bc47-47e9-8f11-96bb5bd8d8fd
+  - name: Progress
+    alpha: 6.2
+    id: 031a123c-66c6-44fc-9276-75abd0cef0d5
+  - name: Saaz
+    alpha: 2.2
+    id: 4daa4d13-d8d4-45bf-84d2-2169e1a67016
+  - name: Styrian Goldings
+    alpha: 4.5
+    id: 3405bae5-3703-4f58-b04d-8c0397d1f805
+  - name: Target
+    alpha: 11.2
+    id: 77b28828-fc83-42c9-8b2a-be39b0b2ed75
+  - name: Tettnang
+    alpha: 5
+    id: e55aca41-17eb-4ba6-8f0e-56676804dae0
+  - name: WGV
+    alpha: 6.3
+    id: 505e2e16-83f9-406e-bdde-4395d5567afb
+
+
+yeasts:
+  - name: Mangrove Jack's Empire Ale Yeast
+    attenuation: 0.725
+  - name: Mangrove Jack's Liberty Bell Yeast
+    attenuation: 0.76
