@@ -1,52 +1,14 @@
-#!/usr/bin/env python3
-import os.path
-import logging
-import sys
-
-from datetime import datetime
-
 import sqlalchemy.exc
-import sqlalchemy.orm.exc
 
-from flask import Flask, jsonify, redirect, request, make_response
+from flask import jsonify, make_response, request
 
 import models
 import hal
 
+from .app import app
+
 from database import db_session
 from user import get_logged_in_user, user_restrict
-
-app = Flask(__name__)
-
-
-DOCROOT = os.path.dirname(__file__)
-
-
-@app.route('/')
-def home():
-    return redirect('/index.html')
-
-
-@app.route('/fermentable', methods=['GET'])
-@app.route('/fermentable/<id>', methods=["GET"])
-def get_fermentables(id=None):
-    query = db_session.query(models.Fermentable)
-
-    if id:
-        return jsonify(hal.item(query.get(id), href='/fermentable/{id}'))
-
-    return jsonify(hal.query(query, href='/fermentable'))
-
-
-@app.route('/hop', methods=['GET'])
-@app.route('/hop/<id>', methods=['GET'])
-def get_hops(id=None):
-    query = db_session.query(models.Hop)
-
-    if id:
-        return jsonify(hal.item(query.get(id), href='/hop/{id}'))
-
-    return jsonify(hal.query(query, href='/hop'))
 
 
 @app.route('/recipe', methods=['GET'])
@@ -187,91 +149,4 @@ def get_recipe_hop_schedule(id):
 def get_recipe_grain_bill(id):
     return make_response(('Not implemented yet', 500))
 
-
-@app.route('/profile/<id>', methods=['GET'])
-def get_profile(id):
-    try:
-        profile = user_restrict(db_session.query(models.BrewingProfile), models.UserProfileLink).filter(models.BrewingProfile.id==id).one()
-        return jsonify(hal.item(profile, href='/profile/{id}'.format(id=id)))
-
-    except sqlalchemy.orm.exc.NoResultFound:
-        db_session.rollback()
-        return make_response(('Profile not found', 404))
-
-
-@app.route('/batch', methods=["POST"])
-def new_batch():
-    req = request.get_json()
-
-    try:
-        query = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink)
-        recipe = query.filter(models.Recipe.id == req['recipe_id']).one()
-
-        batch = models.Batch(**req)
-
-        if not batch.profile_id:
-            batch.actual_profile = recipe.profile
-
-        if not batch.brew_date:
-            batch.brew_date = datetime.now()
-
-        db_session.add(batch)
-        db_session.add(models.UserBatchLink(user=get_logged_in_user(), batch=batch))
-        db_session.commit()
-
-        return jsonify(hal.item(batch, href='/batch/{id}'.format(id=batch.id)))
-
-    except KeyError:
-        db_session.rollback()
-        return make_response(('Must supply recipe ID', 401))
-
-    except sqlalchemy.orm.exc.NoResultFound:
-        db_session.rollback()
-        return make_response(('Recipe not found', 404))
-
-    except:
-        db_session.rollback()
-        raise
-
-
-@app.route('/batch/<id>', methods=["GET"])
-def get_batch(id):
-    try:
-        batch = user_restrict(db_session.query(models.Batch), models.UserBatchLink).filter(models.Batch.id == id).one()
-        result = hal.item(batch, href='/batch/{id}'.format(id=id))
-        result['profile'] = hal.item(batch.actual_profile, href='/profile/{id}'.format(id=batch.profile_id))
-        result['recipe'] = hal.item(batch.recipe, href='/recipe/{id}'.format(id=batch.recipe_id))
-        return jsonify(result)
-
-    except sqlalchemy.orm.exc.NoResultFound:
-        return make_response(('Batch not found', 404))
-
-
-@app.route('/batch/<id>', methods=["PUT"])
-def put_batch(id):
-    req = request.get_json()
-
-    try:
-        batch = user_restrict(db_session.query(models.Batch), models.UserBatchLink).filter(models.Batch.id == id).one()
-
-        params = {'brew_date', 'rack_date', 'package_date',
-                  'pre_boil_gravity', 'original_gravity', 'final_gravity'}
-        for param in params & req.keys():
-            setattr(batch, param, req[param])
-
-        db_session.commit()
-
-        return jsonify(hal.item(batch, href='/batch/{id}'.format(id=id)))
-
-    except sqlalchemy.orm.exc.NoResultFound:
-        db_session.rollback()
-        return make_response(('Batch not found', 404))
-
-    except:
-        db_session.rollback()
-        raise
-
-
-if __name__ == "__main__":
-    app.run()
 
