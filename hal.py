@@ -2,9 +2,9 @@ from flask import request
 from urllib.parse import quote as url_quote
 
 
-def item(item, href):
+def item(item, **kwargs):
     if isinstance(item, list):
-        return _list(item, href)
+        return _list(item, **kwargs)
 
     if not isinstance(item, dict):
         if hasattr(item, '__table__'):
@@ -12,11 +12,8 @@ def item(item, href):
         else:
             item = vars(item)
 
-    item['_links'] = {
-        'self': {
-            'href': url_quote(href.format(id=item['id']))
-        }
-    }
+    item['_links'] = {key: {'href': url_quote(link.format(id=item['id']) if 'id' in item else link)}
+                      for key, link in kwargs.items()}
 
     return item
 
@@ -24,7 +21,7 @@ def item(item, href):
 def _list(items, href, offset=None, limit=None, total=None):
     result = {
         'count': len(items),
-        '_embedded': [item(o, href + '/{id}') for o in items],
+        '_embedded': [item(o, href=href + '/{id}') for o in items],
         '_links': {}
     }
 
