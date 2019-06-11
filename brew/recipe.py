@@ -90,7 +90,7 @@ def post_recipe(id=None):
 
     except sqlalchemy.exc.IntegrityError as ex:
         db_session.rollback()
-        return make_response(('Error with recipe: {}'.format(ex), 401))
+        return make_response(('Error with recipe: {}'.format(ex), 400))
 
     except sqlalchemy.orm.exc.NoResultFound as ex:
         db_session.rollback()

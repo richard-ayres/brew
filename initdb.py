@@ -25,7 +25,13 @@ try:
     db_session.query(models.Recipe).delete()
 
     db_session.query(models.User).delete()
-    default_user = models.User(name='Richard Ayres', email='richard@bitspear.co.uk')
+    default_user = models.User(
+        name='Richard Ayres',
+        email='richard@bitspear.co.uk',
+        salt='7422dfa8345b2bcd70778586a91130e9bf6429003fca7b32e77ec88e515b3395',
+        password='ce13c1706ea37b1fc0ca3c5deb1789179889c1cf9644885561a65dc1c7441345',
+        active=True
+    )
     db_session.add(default_user)
 
     db_session.commit()

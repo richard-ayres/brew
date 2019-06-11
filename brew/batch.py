@@ -36,7 +36,7 @@ def new_batch():
 
     except KeyError:
         db_session.rollback()
-        return make_response(('Must supply recipe ID', 401))
+        return make_response(('Must supply recipe ID', 400))
 
     except sqlalchemy.orm.exc.NoResultFound:
         db_session.rollback()
