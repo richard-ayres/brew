@@ -8,5 +8,6 @@ class HopSchedule(Calculator):
         return "\n".join(map(str, self['hop-additions']))
 
     def calculate(self):
+        hop_additions = list(self['hop-additions'])
         return sum(addition.with_(gravity=self['gravity'], volume=self['volume']).calculate()
-                   for addition in self['hop-additions'])
+                   for addition in hop_additions)

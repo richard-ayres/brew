@@ -171,3 +171,70 @@ def get_recipe_grain_bill(id):
         db_session.rollback()
         return make_response(('Recipe not found', 404))
 
+
+
+@app.route('/recipe/<id>/stats')
+def get_recipe_stats(id):
+    try:
+        result = dict()
+
+        recipe = load_recipe(id)
+
+        def load_fermentable(gb):
+            fermentable = zymurgy.Fermentable.from_model(gb.fermentable)
+            fermentable['weight'] = gb.weight
+            if gb.ebc:
+                fermentable['ebc'] = gb.ebc
+            if gb.extract_max:
+                fermentable['extract-max'] = gb.extract_max
+            if gb.fermentability:
+                fermentable['fermentability'] = gb.fermentability
+            return fermentable
+
+        def load_hop(h):
+            if h.when not in {'fwh', 'boil'} or h.boil_time is None or h.boil_time == 0:
+                return None
+            hop = zymurgy.Hop.from_model(h.hop)
+            hop['weight'] = h.weight
+            hop['boil-time'] = h.boil_time
+            if h.alpha:
+                hop['alpha'] = h.alpha
+            return hop
+
+
+        fermentables = list(filter(None, map(load_fermentable, recipe.grain_bill)))
+        hops = list(filter(None, map(load_hop, recipe.hop_schedule)))
+
+        gb = calculators.GrainBill(
+            efficiency=recipe.profile.mash_efficiency,
+            volume=recipe.profile.volume_in_fermenter,
+            fermentables=fermentables
+        )
+
+        og, ebc = gb.calculate()
+        result['og'] = og
+        result['ebc'] = ebc
+
+        attenuation = calculators.Attenuation(
+            brew_efficiency=recipe.profile.mash_efficiency,
+            original_gravity=og,
+            fermentables=fermentables,
+            volume=recipe.profile.volume_in_fermenter
+        )
+        # if recipe.yeast:
+        #     attenuation['yeast-efficiency'] = recipe.yeast.attenuation
+        result['fg'] = attenuation.calculate()
+
+        hop_schedule = calculators.HopSchedule(
+            gravity=og,
+            volume=recipe.profile.volume_in_fermenter,
+            hop_additions=hops
+        )
+        result['ibu'] = hop_schedule.calculate()
+
+        result['abv'] = calculators.ABVCalculator(original_gravity=result['og'], final_gravity=result['fg']).calculate()
+
+        return jsonify(hal.item(result, href='/recipe/{id}/stats'.format(id=recipe.id), recipe='/recipe/{id}'.format(id=recipe.id)))
+    except sqlalchemy.orm.exc.NoResultFound:
+        return make_response(('Recipe not found', 404))
+

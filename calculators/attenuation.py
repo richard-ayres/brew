@@ -19,10 +19,12 @@ class Attenuation(Calculator):
                            fermentables=self['fermentables'])
             og = gb.calculate().gravity
 
+        fermentables = list(self['fermentables'])
+
         yeast_efficiency_factor = 100 * self['yeast-efficiency'] / 62.0
 
         total_extract = sum(fermentable().extract * fermentable['fermentability'] * (self['brew-efficiency'] if not fermentable['is-extract'] else 1.0)
-                            for fermentable in self['fermentables'])
+                            for fermentable in fermentables)
 
         total_extract = total_extract / self['volume']
 
