@@ -328,9 +328,897 @@ hops:
     alpha: 6.3
     id: 505e2e16-83f9-406e-bdde-4395d5567afb
 
-
 yeasts:
   - name: Mangrove Jack's Empire Ale Yeast
+    id: c7c8fb1b-1537-4374-bc89-5d5b8548fb50
     attenuation: 0.725
+    flocculation: high
+    temp_min: 18
+    temp_max: 22
   - name: Mangrove Jack's Liberty Bell Yeast
+    id: 84422f5b-89a3-4467-89d0-6e6dfa50d2e2
     attenuation: 0.76
+    flocculation: high
+    temp_min: 18
+    temp_max: 23
+  - name: White Labs - 10th Anniversary Blend WLP010
+    id: d50e78a1-3cde-418a-a145-ed0cf93fb77b
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 77.5
+  - name: White Labs - Abbey Ale WLP530
+    id: 7cf7bc8f-215c-4f07-a4fc-8dbdc2181abf
+    type: liquid
+    flocculation: med/High
+    temp_min: 18.9
+    temp_max: 22.2
+    attenuation: 77.5
+  - name: Siebel Inst. - Alt Ale BRY 144
+    id: f5e22de8-aae9-44ae-9f3b-18672ffb5859
+    type: liquid
+    flocculation: medium
+    temp_min: 15.0
+    temp_max: 20.0
+    attenuation: High
+  - name: White Labs - Amer. Hefeweizen Ale WLP320
+    id: df9a3a84-11f6-48a6-8b21-f2088b7655bc
+    type: liquid
+    flocculation: low
+    temp_min: 18.3
+    temp_max: 20.6
+    attenuation: 72.5
+  - name: Wyeast - American Ale 1056
+    id: c8edd4bc-2f37-4ad4-abf8-e4ae3921369b
+    type: liquid
+    flocculation: low
+    temp_min: 15.6
+    temp_max: 22.2
+    attenuation: 75
+  - name: Siebel Inst. - American Ale BRY 96
+    id: 0358f2bb-70d6-4038-9606-c637c81d7270
+    type: liquid
+    flocculation: medium
+    temp_min: 17.8
+    temp_max: 22.2
+    attenuation: 0
+  - name: Wyeast - American Ale II 1272
+    id: e7f337f6-98ea-40f9-a7c7-4112d4998e1e
+    type: liquid
+    flocculation: high
+    temp_min: 15.6
+    temp_max: 22.2
+    attenuation: 74
+  - name: White Labs - American Ale Yeast Blend WLP060
+    id: 1b61a2e3-61ab-47d7-87b2-9b2c35ea5420
+    type: liquid
+    flocculation: medium
+    temp_min: 20.0
+    temp_max: 22.8
+    attenuation: 76
+  - name: Wyeast - American Lager 2035
+    id: fbf056a7-06ae-44eb-9b9d-30434d25f6e1
+    type: liquid
+    flocculation: medium
+    temp_min: 8.9
+    temp_max: 14.4
+    attenuation: 77.5
+  - name: Siebel Inst. - American Lager BRY 118
+    id: def6cac0-41b4-4313-9184-85c9ba65a3a5
+    type: liquid
+    flocculation: very High
+    temp_min: 20.0
+    temp_max: 22.2
+    attenuation: Med.
+  - name: White Labs - American Lager WLP840
+    id: 4202ea07-d353-49bc-9cc0-2a285c1f570c
+    type: liquid
+    flocculation: medium
+    temp_min: 10.0
+    temp_max: 12.8
+    attenuation: 77.5
+  - name: Wyeast - American Wheat 1010
+    id: edf80c86-e80c-422d-b31b-3e3ddb1e5a84
+    type: liquid
+    flocculation: low
+    temp_min: 14.4
+    temp_max: 23.3
+    attenuation: 76
+  - name: White Labs - Australian Ale WLP009
+    id: dc886996-932a-4578-9201-89d328ed1c35
+    type: liquid
+    flocculation: high
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 72.5
+  - name: White Labs - Bastogne Belgian Ale Yeast WLP510
+    id: b45bacaf-d80c-4c2a-b3bd-f60a3d429a8a
+    type: liquid
+    flocculation: medium
+    temp_min: 18.9
+    temp_max: 22.2
+    attenuation: 77
+  - name: Wyeast - Bavarian Lager 2206
+    id: f3450ab6-14d1-4308-adcd-40181606bdca
+    type: liquid
+    flocculation: medium
+    temp_min: 7.8
+    temp_max: 14.4
+    attenuation: 75
+  - name: White Labs - Bavarian Weizen Ale WLP351
+    id: 16ff3287-9a07-4291-b881-23d003d33713
+    type: liquid
+    flocculation: low
+    temp_min: 18.9
+    temp_max: 21.1
+    attenuation: 75
+  - name: Siebel Inst. - Bavarian Weizen BRY 235
+    id: 83dda4ae-418d-455f-a4ab-b1ddae3b5854
+    type: liquid
+    flocculation: high
+    temp_min: 10.0
+    temp_max: 13.9
+    attenuation: 0.0
+  - name: Wyeast - Bavarian Wheat 3056
+    id: 0f840c5d-b062-4611-9694-b99e2eec3c4d
+    type: liquid
+    flocculation: medium
+    attenuation: 75
+    temp_min: 17.8
+    temp_max: 23.3
+  - name: Wyeast - Bavarian Wheat 3638
+    id: 3e479b7a-ee2b-43b8-bcf7-5a305ebbc611
+    type: liquid
+    flocculation: low
+    temp_max: 17.8
+    temp_min: 23.9
+    attenuation: 73
+  - name: White Labs - Bedford British Ale WLP006
+    id: 8c79b46d-d468-46e2-9cfe-f222cf33f62f
+    type: liquid
+    flocculation: high
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 76
+  - name: Wyeast - Belgian Abbey II 1762
+    id: 990fd64c-b8f9-4fc5-9505-e85eca4f1328
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 23.9
+    attenuation: 75
+  - name: Wyeast - Belgian Ale 1214
+    id: 6e71b183-3cc1-4610-8a4e-fc182e41c86d
+    type: liquid
+    flocculation: medium
+    temp_min: 14.4
+    temp_max: 20.0
+    attenuation: 74
+  - name: White Labs - Belgian Ale WLP550
+    id: 9fe6e286-3544-40eb-9540-c6f5efabfc1b
+    type: liquid
+    flocculation: medium
+    temp_min: 20.0
+    temp_max: 25.6
+    attenuation: 81.5
+  - name: Wyeast - Belgian Ardennes 3522
+    id: d08e4a98-5082-4591-8e5b-68bbaf59cc4b
+    type: liquid
+    flocculation: high
+    temp_min: 18.3
+    temp_max: 29.4
+    attenuation: 74
+  - name: White Labs - Belgian Golden Ale WLP570
+    id: 7a46b096-0176-434a-857a-fb8f5f151e22
+    type: liquid
+    flocculation: low
+    temp_min: 20.0
+    temp_max: 23.9
+    attenuation: 75.5
+  - name: Wyeast - Belgian Lambic Blend 3278
+    id: a533c16e-18d0-4be7-b6a8-685b03cfc5f2
+    type: liquid
+    flocculation: low
+    temp_min: 17.2
+    temp_max: 23.9
+    attenuation: 70
+  - name: Wyeast - Belgian Saison 3724
+    id: c9abc413-01d4-49cd-b36b-b1b28ed47696
+    type: liquid
+    flocculation: low
+    temp_min: 21.1
+    temp_max: 26.7
+    attenuation: 78
+  - name: White Labs - Belgian Saison I WLP565
+    id: a9249cc5-7cb2-4e34-8a6c-1893914a0156
+    type: liquid
+    flocculation: medium
+    temp_min: 20.0
+    temp_max: 23.9
+    attenuation: 70
+#  - name: White Labs - Belgian Sour Mix WLP655
+#  id: bebe538a-4858-423e-8916-f99be3da7cbe
+#    type: liquid
+#    flocculation: nA
+#    temp_min: NA
+#    temp_max: NA
+#    attenuation: NA
+  - name: Wyeast - Belgian Strong Ale 1388
+    id: 31f38d21-a38b-4165-89be-0f75ef493de0
+    type: liquid
+    flocculation: low
+    temp_min: 18.3
+    temp_max: 23.9
+    attenuation: 75
+  - name: White Labs - Belgian Style Ale Yeast Blend WLP575
+    id: 0d35f365-bf65-49bd-a1d6-3cd04ed67719
+    type: liquid
+    flocculation: medium
+    temp_min: 20.0
+    temp_max: 23.9
+    attenuation: 77
+  - name: Wyeast - Belgian Wheat 3942
+    id: c39de507-d928-4c5f-9109-be7d871d7ada
+    type: liquid
+    flocculation: medium
+    temp_min: 17.8
+    temp_max: 23.3
+    attenuation: 74
+  - name: White Labs - Belgian Wit Ale WLP400
+    id: 233139aa-0065-411c-a935-b21ad1cf1754
+    type: liquid
+    flocculation: low
+    temp_min: 19.4
+    temp_max: 23.3
+    attenuation: 76
+  - name: White Labs - Belgian Wit II Ale WLP410
+    id: 6876c06b-81b7-48d0-8771-3e787ee621ae
+    type: liquid
+    flocculation: low
+    temp_min: 19.4
+    temp_max: 23.3
+    attenuation: 72.5
+  - name: Wyeast - Belgian Witbier 3944
+    id: 7ceb9c69-0132-425c-aa51-761b94758ed5
+    type: liquid
+    flocculation: medium
+    temp_min: 15.6
+    temp_max: 23.9
+    attenuation: 74
+  - name: Wyeast - Biere de Garde
+    id: 04188350-3c6e-4645-bc76-b50a1d3c1460
+    type: liquid
+    flocculation: low
+    temp_min: 21.1
+    temp_max: 35.0
+    attenuation: 78
+  - name: Wyeast - Bohemian Lager 2124
+    id: 05852331-87d4-46ff-9977-faf38746a8cd
+    type: liquid
+    flocculation: medium
+    temp_min: 8.9
+    temp_max: 14.4
+    attenuation: 71
+  - name: Wyeast - Brettan. Bruxellensis 3112
+    id: da37dc16-3b08-4302-b460-3dff860ee8ae
+    type: liquid
+    flocculation: low
+    temp_min: 17.8
+    temp_max: 21.1
+    attenuation: Low
+  - name: Wyeast - Brettan. Lambicus 3526
+    id: c9710ddc-c2ac-433b-bee2-3e6a710d0ae3
+    type: liquid
+    flocculation: medium
+    temp_min: 15.6
+    temp_max: 23.9
+    attenuation: Low
+#  - name: White Labs - Brettanomyces bruxellensis WLP650
+#  id: efc079d1-d07e-4f2a-8c6d-b01564a424e6
+#    type: liquid
+#    flocculation: nA
+#    temp_min: NA
+#    temp_max: NA
+#    attenuation: NA
+#  - name: White Labs - Brettanomyces Claussenii WLP645
+#  id: 25473c83-d483-4d83-9e04-1b1411d490ac
+#    type: liquid
+#    flocculation: nA
+#    temp_min: NA
+#    temp_max: NA
+#    attenuation: NA
+#  - name: White Labs - Brettanomyces Lambicus WLP653
+#  id: d4611f36-1a69-4649-91b2-9e31acdbcf91
+#    type: liquid
+#    flocculation: nA
+#    temp_min: NA
+#    temp_max: NA
+#    attenuation: NA
+  - name: Brewferm - Brewferm Blanche
+    id: 5684de29-a56a-49b3-979f-38d6435f9890
+    type: dried
+    flocculation: low
+    temp_min: 17.8
+    temp_max: 22.8
+    attenuation: High
+  - name: Brewferm - Brewferm Lager
+    id: bc0af3fa-e462-4b25-8327-90c0c46af33e
+    type: dried
+    flocculation: high
+    temp_min: 10.0
+    temp_max: 15.0
+    attenuation: High
+  - name: Wyeast - British Ale 1098
+    id: f57d89e0-81c7-450e-b977-cfa0c27bb655
+    type: liquid
+    flocculation: medium
+    temp_min: 17.8
+    temp_max: 22.2
+    attenuation: 74
+  - name: Wyeast - British Ale II 1335
+    id: d8e8edcf-332b-4858-9d29-481c357e5758
+    type: liquid
+    flocculation: high
+    temp_min: 17.2
+    temp_max: 23.9
+    attenuation: 74
+  - name: White Labs - British Ale WLP005
+    id: 83557d5c-8ef9-40df-9d2d-f28de10d5e3c
+    type: liquid
+    flocculation: high
+    temp_min: 20.0
+    temp_max: 23.9
+    attenuation: 77.5
+  - name: Wyeast - British Cask Ale 1026
+    id: 14e66357-71b8-442c-b549-c86b0bdf2a41
+    type: liquid
+    flocculation: med/High
+    temp_min: 15.6
+    temp_max: 23.9
+    attenuation: 76.5
+  - name: Wyeast - Budvar Lager 2000
+    id: 9e28c1e2-c22f-48a3-bbca-041ddac829fa
+    type: liquid
+    flocculation: med/High
+    temp_min: 8.9
+    temp_max: 13.3
+    attenuation: 73
+  - name: White Labs - Burton Ale WLP023
+    id: aa106c03-757f-4af7-ae09-3fc7cf1bfedc
+    type: liquid
+    flocculation: medium
+    temp_min: 20.0
+    temp_max: 22.8
+    attenuation: 70
+  - name: White Labs - California Ale V WLP051
+    id: 3525b950-720d-4c87-ab72-984e7e5ff7f9
+    type: liquid
+    flocculation: med/High
+    temp_min: 18.9
+    temp_max: 21.1
+    attenuation: 72.5
+  - name: White Labs - California Ale WLP001
+    id: 5e772baa-2e3d-493d-b0a6-a795d6a5bece
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 69
+  - name: Wyeast - California Lager 2112
+    id: 880683c8-5192-448f-aa4e-e4d24e36218a
+    type: liquid
+    flocculation: high
+    temp_min: 14.4
+    temp_max: 20.0
+    attenuation: 69
+  - name: Wyeast - Canadian/Belgian Style 3864
+    id: ca0eb863-cb9b-4552-9da5-27e01c88a75e
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 26.7
+    attenuation: 77
+  - name: Coopers - Coopers Homebrew Yeast
+    id: 01da66bf-d61f-4696-a1b3-4814dd179f9d
+    type: dried
+    flocculation: high
+    temp_min: 20.0
+    temp_max: 26.7
+    attenuation: High
+  - name: White Labs - Copenhagen Lager WLP850
+    id: 2233c2cb-edb1-466e-9b76-d012567f8636
+    type: liquid
+    flocculation: medium
+    temp_min: 10.0
+    temp_max: 14.4
+    attenuation: 75
+  - name: White Labs - Czech Budejovice Lager WLP802
+    id: 0fc1c9a8-b051-485a-ac94-78f6ddc2a4d9
+    type: liquid
+    flocculation: medium
+    temp_min: 10.0
+    temp_max: 12.8
+    attenuation: 76.5
+  - name: Wyeast - Czech Pils 2278
+    id: 78d39253-565d-4cc1-845c-84a4b80b7be6
+    type: liquid
+    flocculation: medium
+    temp_min: 10.0
+    temp_max: 14.4
+    attenuation: 72
+  - name: Wyeast - Danish Lager 2042
+    id: a2916973-f292-4e62-b06d-4ee5419699e5
+    type: liquid
+    flocculation: low
+    temp_min: 7.8
+    temp_max: 13.3
+    attenuation: 75
+  - name: White Labs - Dry English ale WLP007
+    id: ed2bcca5-ae7b-48b7-a3bf-d1b72a715ead
+    type: liquid
+    flocculation: high
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 75
+  - name: White Labs - Dusseldorf Alt WLP036
+    id: f9db1269-50f1-44d2-a432-d12c82aa5b4f
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 20.6
+    attenuation: 68.5
+  - name: Wyeast - Dutch Castle Yeast 3822
+    id: 020cdcba-04e8-40e6-bbf4-9738681f2bcf
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 26.7
+    attenuation: 76.5
+  - name: White Labs - East Coast Ale WLP008
+    id: 704f2908-7695-46ca-98e3-446cfff093d8
+    type: liquid
+    flocculation: low
+    temp_min: 20.0
+    temp_max: 22.8
+    attenuation: 72.5
+  - name: Siebel Inst. - English Ale BRY 264
+    id: 0a172181-9a70-40bf-81ab-1036936c19cf
+    type: liquid
+    flocculation: medium
+    temp_min: 15.0
+    temp_max: 20.0
+    attenuation: High
+  - name: White Labs - English Ale WLP002
+    id: 7fb798e1-3f71-400c-b9a4-2c2c21ec8d86
+    type: liquid
+    flocculation: med/High
+    temp_min: 20.0
+    temp_max: 22.8
+    attenuation: 72.5
+  - name: Wyeast - English Special Bitter 1768
+    id: 72b00a90-629d-46c9-ab93-36a928101cc3
+    type: liquid
+    flocculation: high
+    temp_min: 17.8
+    temp_max: 22.2
+    attenuation: 70
+  - name: White Labs - Essex Ale Yeast WLP022
+    id: b7934ce7-94ce-46da-a6ca-9e6497bac549
+    type: liquid
+    flocculation: med/High
+    temp_min: 18.9
+    temp_max: 21.1
+    attenuation: 73.5
+  - name: White Labs - European Ale WLP011
+    id: 6d10b262-00c1-4591-9384-3f3972d7c647
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 67.5
+  - name: Wyeast - European Lager II 2247
+    id: aec90296-dfb3-4f88-87ab-28259094ee2c
+    type: liquid
+    flocculation: low
+    temp_min: 7.8
+    temp_max: 13.3
+    attenuation: 75
+  - name: Wyeast - Farmhouse Ale 3726
+    id: 284cff25-9df6-48a4-aa2e-548d14b659b8
+    type: liquid
+    flocculation: low
+    temp_min: 21.1
+    temp_max: 35.0
+    attenuation: 78.5
+  - name: Fermentis - Fermentis US 56
+    id: 348ed2ee-0119-42df-9de6-8ee6bbe2c803
+    type: dried
+    flocculation: medium
+    temp_min: 15.0
+    temp_max: 23.9
+    attenuation: 77
+  - name: Wyeast - Forbidden Fruit Yeast 3463
+    id: ecfeee77-27c5-41fe-b4bf-c6dd1f471f95
+    type: liquid
+    flocculation: low
+    temp_min: 17.2
+    temp_max: 24.4
+    attenuation: 75
+  - name: Wyeast - Gambrinus Lager 2002
+    id: 47171f6f-e7ee-4b61-a4bf-8ccdda52d3d0
+    type: liquid
+    flocculation: med/High
+    temp_min: 7.8
+    temp_max: 13.3
+    attenuation: 73
+  - name: Wyeast - German Ale 1007
+    id: b271dc0e-c22a-4614-ac66-86d39c3f06aa
+    type: liquid
+    flocculation: low
+    temp_min: 12.8
+    temp_max: 20.0
+    attenuation: 75
+  - name: White Labs - German Ale II WLP003
+    id: d0f6496d-e976-4b6d-979a-e2afeec230cb
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 72.5
+  - name: White Labs - German Ale/Kölsch WLP029
+    id: 541d9686-c96e-4531-ac9a-1de70f228683
+    type: liquid
+    flocculation: very High
+    temp_min: 18.3
+    temp_max: 20.6
+    attenuation: 75
+  - name: White Labs - German Lager WLP830
+    id: 92e6b987-2443-41f9-bd02-e26966e94d60
+    type: liquid
+    flocculation: medium
+    temp_min: 10.0
+    temp_max: 12.8
+    attenuation: 76.5
+  - name: Wyeast - German Wheat 3333
+    id: 587995e4-69a8-4548-a802-709c12dbc7fa
+    type: liquid
+    flocculation: high
+    temp_min: 17.2
+    temp_max: 23.9
+    attenuation: 75
+  - name: White Labs - Hefeweizen Ale WLP300
+    id: 14e70b07-0fce-485f-9d25-c68a3d925379
+    type: liquid
+    flocculation: low
+    temp_min: 20.0
+    temp_max: 22.2
+    attenuation: 74
+  - name: White Labs - Hefeweizen IV Ale WLP380
+    id: 0821273e-b6cd-40bb-8c3c-e5b4d2d632d9
+    type: liquid
+    flocculation: low
+    temp_min: 18.9
+    temp_max: 21.1
+    attenuation: 76.5
+  - name: Wyeast - Irish Ale 1084
+    id: 87e608b9-1a7a-46e4-8e0d-bcc173125036
+    type: liquid
+    flocculation: high
+    temp_min: 15.6
+    temp_max: 22.2
+    attenuation: 75
+  - name: White Labs - Irish Ale WLP004
+    id: 4b03c223-b952-4c6b-bd90-8c8845636894
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 21.1
+    attenuation: 76.5
+  - name: Wyeast - Kölsch 2565
+    id: da9f0e0f-2fe5-4400-ba2e-c92090ff11a8
+    type: liquid
+    flocculation: low
+    temp_min: 13.3
+    temp_max: 21.1
+    attenuation: 75
+#  - name: Wyeast - Lactobac. Delbruckii 4335
+#  id: 2feb9539-a767-42f0-8f98-d6521aee2b72
+#    type: liquid
+#    flocculation: nA
+#    temp_min: NA
+#    temp_max: NA
+#    attenuation: NA
+  - name: Wyeast - Leuven Pale Ale 3538
+    id: 56928263-230d-4f23-b382-e4f460f93c0e
+    type: liquid
+    flocculation: high
+    temp_min: 15.6
+    temp_max: 23.9
+    attenuation: 76.5
+  - name: Wyeast - London Ale 1028
+    id: 042aa27a-605b-431c-a466-80087575243b
+    type: liquid
+    flocculation: low
+    temp_min: 15.6
+    temp_max: 22.2
+    attenuation: 75
+  - name: Wyeast - London Ale III 1318
+    id: c8f4a4b0-cbbe-4f09-a4e9-527e649875fe
+    type: liquid
+    flocculation: high
+    temp_min: 17.8
+    temp_max: 23.3
+    attenuation: 73
+  - name: White Labs - London Ale WLP013
+    id: cfe8f26d-4628-48f7-a5fa-e8f6566f0c02
+    type: liquid
+    flocculation: medium
+    temp_min: 18.9
+    temp_max: 21.7
+    attenuation: 71
+  - name: Wyeast - London ESB Ale 1968
+    id: 222365eb-af3b-4533-9ebd-582cb6623ab0
+    type: liquid
+    flocculation: high
+    temp_min: 18.3
+    temp_max: 22.2
+    attenuation: 69
+  - name: White Labs - Mexican Lager Yeast WLP940
+    id: abe6b72a-1ab8-4d50-b8f1-cb5246b778a4
+    type: liquid
+    flocculation: medium
+    temp_min: 10.0
+    temp_max: 12.8
+    attenuation: 74
+  - name: Wyeast - Munich Lager 2308
+    id: 55cc3f54-abec-439c-9c1f-aaab3cb85a3b
+    type: liquid
+    flocculation: medium
+    temp_min: 8.9
+    temp_max: 13.3
+    attenuation: 75
+  - name: Muntons - Muntons Premium Gold
+    id: 25da8dd4-40d2-4d23-b5be-8d11b2198dae
+    type: dried
+    flocculation: high
+    temp_min: 13.9
+    temp_max: 25.0
+    attenuation: High
+  - name: Muntons - Muntons Standard Yeast
+    id: 381de56a-1798-4f4b-9970-9c505c29212b
+    type: dried
+    flocculation: high
+    temp_min: 13.9
+    temp_max: 25.0
+    attenuation: High
+  - name: Wyeast - North American Lager 2272
+    id: ef34365c-e3c8-48fc-be0e-6ae87c2fbc63
+    type: liquid
+    flocculation: high
+    temp_min: 11.1
+    temp_max: 14.4
+    attenuation: 73
+  - name: Siebel Inst. - North European Lager BRY 203
+    id: d759de35-b665-4e14-aaef-dd001bb6fdbb
+    type: liquid
+    flocculation: low
+    temp_min: 20.0
+    temp_max: 22.2
+    attenuation: High
+  - name: Wyeast - Northwest Ale 1332
+    id: 0a87f6b3-8677-475f-bffb-babe3d27ba07
+    type: liquid
+    flocculation: high
+    temp_min: 18.3
+    temp_max: 23.9
+    attenuation: 69
+  - name: Danstar - Nottingham
+    id: 0eaa232f-2f4f-4d66-ba14-c907d0017f46
+    type: dried
+    flocculation: high
+    temp_min: 13.9
+    temp_max: 21.1
+    attenuation: High
+  - name: Wyeast - Octoberfest Lager Blend 2633
+    id: 2eb6f1eb-1df2-4b69-ada4-24933a668a51
+    type: liquid
+    flocculation: low
+    temp_min: 8.9
+    temp_max: 14.4
+    attenuation: 75
+  - name: White Labs - Oktoberfest/Märzen WLP820
+    id: 0b0d2aa2-3ee6-479d-9646-aded5ec61e8f
+    type: liquid
+    flocculation: medium
+    temp_min: 11.1
+    temp_max: 14.4
+    attenuation: 69
+  - name: White Labs - Old Bavarian Lager Yeast WLP920
+    id: c4b76d5d-8387-4c57-93b3-cb4ab554201f
+    type: liquid
+    flocculation: medium
+    temp_min: 10.0
+    temp_max: 12.8
+    attenuation: 69.5
+  - name: White Labs - Pacific Ale WLP041
+    id: 535f7b3d-df6d-48a5-9df5-0fabddc9d84c
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 20.0
+    attenuation: 67.5
+#  - name: Wyeast - Pediococcus Cerivisiae 4733
+#  id: 609ed8e2-827e-44e0-a969-6ea84c98dfae
+#    type: liquid
+#    flocculation: nA
+#    temp_min: NA
+#    temp_max: NA
+#    attenuation: NA
+  - name: Wyeast - Pilsen Lager 2007
+    id: c1a9cd49-23fa-40ae-852e-e12b9474cbb1
+    type: liquid
+    flocculation: medium
+    temp_min: 8.9
+    temp_max: 13.3
+    attenuation: 73
+  - name: White Labs - Pilsner Lager WLP800
+    id: 35dfbcca-8485-4aa7-8a65-0d1749cd1877
+    type: liquid
+    flocculation: med/High
+    temp_min: 10.0
+    temp_max: 12.8
+    attenuation: 74.5
+  - name: White Labs - Premium Bitter Ale WLP026
+    id: b9aa818c-a006-439e-af4a-8a70ab132c59
+    type: liquid
+    flocculation: medium
+    temp_min: 19.4
+    temp_max: 21.1
+    attenuation: 72.5
+  - name: Wyeast - Ringwood Ale 1187
+    id: 1b637401-2caa-4122-a529-d8cf1180593e
+    type: liquid
+    flocculation: high
+    temp_min: 17.8
+    temp_max: 23.3
+    attenuation: 69
+  - name: Fermentis - Safale S-04
+    id: a25971e0-d967-4ce4-95a6-11f8adeb3894
+    type: dried
+    flocculation: high
+    temp_min: 15.0
+    temp_max: 23.9
+    attenuation: 79
+  - name: Fermentis - Safbrew S-33
+    id: fdc3a050-b0d3-4859-b32c-71a8bfa315e0
+    type: dried
+    flocculation: med/High
+    temp_min: 15.0
+    temp_max: 23.9
+    attenuation: 75
+  - name: Fermentis - Safbrew T-58
+    id: 47d7a632-169a-4174-883d-eb341e45abae
+    type: dried
+    flocculation: low
+    temp_min: 15.0
+    temp_max: 23.9
+    attenuation: 75
+  - name: Fermentis - Saflager S-23
+    id: 0c95cb4b-2500-46b2-bb3a-11b858bfaa7d
+    type: dried
+    flocculation: med/High
+    temp_min: 8.9
+    temp_max: 15.0
+    attenuation: 80
+  - name: White Labs - San Francisco Lager WLP810
+    id: 1c351925-a400-40d1-8138-b8d4b3187a32
+    type: liquid
+    flocculation: high
+    temp_min: 14.4
+    temp_max: 18.3
+    attenuation: 67.5
+  - name: Wyeast - Scottish Ale 1728
+    id: 5edc1592-8c71-4641-8d7f-cafbb7caff20
+    type: liquid
+    flocculation: high
+    temp_min: 12.8
+    temp_max: 23.9
+    attenuation: 71
+  - name: White Labs - So. German Lager WLP838
+    id: 690d3bab-2667-4dfd-bac3-d582bbe5d237
+    type: liquid
+    flocculation: med/High
+    temp_min: 10.0
+    temp_max: 12.8
+    attenuation: 72
+  - name: White Labs - Southwold Ale WLP025
+    id: 5b89e3df-b6f9-4386-bcd2-dbb243f1629c
+    type: liquid
+    flocculation: medium
+    temp_min: 18.3
+    temp_max: 19.4
+    attenuation: 75
+  - name: White Labs - Super High Gravity WLP099
+    id: 1ec6b17c-e66a-4f8b-b053-b27c783abb38
+    type: liquid
+    flocculation: low
+    temp_min: 20.6
+    temp_max: 23.3
+    attenuation: <80%
+  - name: Wyeast - Thames Valley Ale 1275
+    id: e955a90c-e28b-46cd-a1c0-05900650ee57
+    type: liquid
+    flocculation: medium
+    temp_min: 16.7
+    temp_max: 23.3
+    attenuation: 74
+  - name: Wyeast - Thames Valley Ale II 1882
+    id: ee662731-b949-4041-a775-55167d03f60b
+    type: liquid
+    flocculation: high
+    temp_min: 16.7
+    temp_max: 22.2
+    attenuation: 75
+  - name: Siebel Inst. - Trappist Ale BRY 204
+    id: 1b3ad814-a8f9-4a0d-8b90-c3f392ec4dfa
+    type: liquid
+    flocculation: medium
+    temp_min: 17.8
+    temp_max: 22.2
+    attenuation: High
+  - name: White Labs - Trappist Ale WLP500
+    id: 98d906ff-fa67-4612-9e88-0a714682ae45
+    type: liquid
+    flocculation: low
+    temp_min: 18.3
+    temp_max: 22.2
+    attenuation: 77.5
+  - name: Wyeast - Trappist High Gravity 3787
+    id: 195992d0-eefe-4705-8892-1a1dc2b88a7d
+    type: liquid
+    flocculation: medium
+    temp_min: 17.8
+    temp_max: 25.6
+    attenuation: 79
+  - name: Wyeast - Weihenstephan Weizen 3068
+    id: 45c39725-fde1-4dda-b30f-321f0ead55f7
+    type: liquid
+    flocculation: low
+    temp_min: 17.8
+    temp_max: 23.9
+    attenuation: 75
+  - name: Wyeast - Whitbread Ale 1099
+    id: e0f26c85-19fa-4350-bf46-88ed15a331ba
+    type: liquid
+    flocculation: high
+    temp_min: 17.8
+    temp_max: 23.3
+    attenuation: 70
+  - name: White Labs - Whitbread Ale WLP017
+    id: 65f268bd-30ad-4bd4-8cbf-c688e7784f80
+    type: liquid
+    flocculation: medium
+    temp_min: 18.9
+    temp_max: 21.1
+    attenuation: 70
+  - name: Danstar - Windsor
+    id: 95e9e950-ac33-42a7-ae8e-11cba776b51c
+    type: dried
+    flocculation: low
+    attenuation: medium
+    temp_min: 17.8
+    temp_max: 21.1
+  - name: Wyeast - Wyeast Ale Blend 1087
+    id: 6ec0f27a-68a4-4e5c-b537-f99f8d95beac
+    type: liquid
+    flocculation: high
+    temp_min: 17.8
+    temp_max: 22.2
+    attenuation: 73
+  - name: White Labs - Zurich Lager WLP885
+    id: fbaf6155-c1b3-412a-8ebc-a8d111264403
+    type: liquid
+    attenuation: 75
+    temp_max: 13
+

@@ -4,7 +4,7 @@ import yaml
 
 from database import db_session, Base, engine as db_engine
 
-init_data = yaml.load(open('init.yml'))
+init_data = yaml.load(open('init.yml', 'r', encoding='utf-8'))
 
 Base.metadata.create_all(db_engine)
 

@@ -33,6 +33,17 @@ def get_hops(id=None):
     return jsonify(hal.query(query, href='/hop'))
 
 
+@app.route('/yeast', methods=['GET'])
+@app.route('/yeast/<id>', methods=['GET'])
+def get_yeast(id=None):
+    query = db_session.query(models.Yeast)
+
+    if id:
+        return jsonify(hal.item(query.get(id), href='/yeast/{id}'))
+
+    return jsonify(hal.query(query, href='/yeast'))
+
+
 @app.route('/profile/<id>', methods=['GET'])
 def get_profile(id):
     try:

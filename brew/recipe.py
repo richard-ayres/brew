@@ -1,7 +1,11 @@
+import logging
+import sqlalchemy.orm.exc
 import sqlalchemy.exc
 
 from flask import jsonify, make_response, request
 
+import zymurgy
+import calculators
 import models
 import hal
 
@@ -11,24 +15,32 @@ from database import db_session
 from user import get_logged_in_user, user_restrict
 
 
+def load_recipe(id):
+    """Convenience function to load the recipe given the ID"""
+    query = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink)
+    return query.filter(models.Recipe.id==id).one()
+
+
 @app.route('/recipe', methods=['GET'])
 @app.route('/recipe/<id>', methods=['GET'])
 def get_recipe(id=None):
-    query = db_session.query(models.Recipe)
-    query = user_restrict(query, models.UserRecipeLink)
-
     if id is None:
+        # We're fetch the list of recipes
+        query = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink)
         return jsonify(hal.query(query, href='/recipe'))
 
-    recipe = query.filter(models.Recipe.id == id).one_or_none()
-    if recipe is None:
-        return make_response(('Recipe not found', 404))
+    try:
+        recipe = load_recipe(id)
+        result = hal.item(recipe, href='/recipe/{id}', stats='/recipe/{id}/stats')
+        result['profile'] = hal.item(recipe.profile, href='/recipe/{id}/profile'.format(id=id))
+        result['grain_bill'] = hal.item(recipe.grain_bill, href='/recipe/{id}/grain_bill'.format(id=id))
+        result['hop_schedule'] = hal.item(recipe.hop_schedule, href='/recipe/{id}/hop_schedule'.format(id=id))
+        if recipe.yeast:
+            result['yeast'] = hal.item(recipe.yeast, href='/yeast/{id}'.format(id=recipe.yeast_id))
+        return jsonify(result)
 
-    result = hal.item(recipe, href='/recipe/{id}'.format(id=id))
-    result['profile'] = hal.item(recipe.profile, href='/recipe/{id}/profile'.format(id=id))
-    result['grain_bill'] = hal.item(recipe.grain_bill, href='/recipe/{id}/grain_bill'.format(id=id))
-    result['hop_schedule'] = hal.item(recipe.hop_schedule, href='/recipe/{id}/hop_schedule'.format(id=id))
-    return jsonify(result)
+    except sqlalchemy.orm.exc.NoResultFound:
+        return make_response(('Recipe not found', 404))
 
 
 @app.route('/recipe', methods=['POST'])
@@ -82,6 +94,8 @@ def post_recipe(id=None):
                 db_session.delete(hop)
             db_session.add_all(map(load_hop_schedule, req['hop_schedule']))
 
+        recipe.yeast_id = req.get('yeast', None)
+
         user = get_logged_in_user()
         db_session.add(models.UserProfileLink(user=user, profile=recipe.profile))
         db_session.add(models.UserRecipeLink(user=user, recipe=recipe))
@@ -96,10 +110,12 @@ def post_recipe(id=None):
         db_session.rollback()
         return make_response(('Item not found: {}'.format(ex), 404))
 
-    result = hal.item(recipe, href='/recipe/{id}'.format(id=recipe.id))
+    result = hal.item(recipe, href='/recipe/{id}'.format(id=recipe.id), stats='/recipe/{id}/stats')
     result['profile'] = hal.item(recipe.profile, href='/recipe/{id}/profile'.format(id=recipe.id))
     result['grain_bill'] = hal.item(recipe.grain_bill, href='/recipe/{id}/grain_bill'.format(id=recipe.id))
     result['hop_schedule'] = hal.item(recipe.hop_schedule, href='/recipe/{id}/hop_schedule'.format(id=recipe.id))
+    if recipe.yeast:
+        result['yeast'] = hal.item(recipe.yeast, href='/yeast/{id}'.format(id=recipe.yeast_id))
 
     return jsonify(result)
 
@@ -107,7 +123,7 @@ def post_recipe(id=None):
 @app.route('/recipe/<id>', methods=['DELETE'])
 def delete_recipe(id):
     try:
-        recipe = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink).filter(models.Recipe.id==id).one()
+        recipe = load_recipe(id)
 
         db_session.query(models.UserRecipeLink).filter_by(recipe_id=recipe.id).delete()
         db_session.query(models.Batch).filter_by(recipe_id=recipe.id).update({'recipe_id': None})
@@ -126,7 +142,7 @@ def delete_recipe(id):
 @app.route('/recipe/<id>/profile', methods=['GET'])
 def get_recipe_profile(id):
     try:
-        recipe = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink).filter(models.Recipe.id==id).one()
+        recipe = load_recipe(id)
         return jsonify(hal.item(recipe.profile, href='/profile/{id}'.format(id=recipe.profile_id)))
 
     except sqlalchemy.orm.exc.NoResultFound:
@@ -137,7 +153,7 @@ def get_recipe_profile(id):
 @app.route('/recipe/<id>/hop_schedule', methods=['GET'])
 def get_recipe_hop_schedule(id):
     try:
-        recipe = user_restrict(db_session.query(models.Recipe), models.UserRecipeLink).filter(models.Recipe.id==id).one()
+        recipe = load_recipe(id)
         return jsonify(hal.item(recipe.hop_schedule, href='/recipe/{recipe_id}/hop_schedule'.format(recipe_id=id)))
 
     except sqlalchemy.orm.exc.NoResultFound:
@@ -147,6 +163,11 @@ def get_recipe_hop_schedule(id):
 
 @app.route('/recipe/<id>/grain_bill', methods=['GET'])
 def get_recipe_grain_bill(id):
-    return make_response(('Not implemented yet', 500))
+    try:
+        recipe = load_recipe(id)
+        return jsonify(hal.item(recipe.grain_bill, href='/recipe/{recipe_id}/grain_bill'.format(recipe_id=id)))
 
+    except sqlalchemy.orm.exc.NoResultFound:
+        db_session.rollback()
+        return make_response(('Recipe not found', 404))
 
